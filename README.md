@@ -30,6 +30,12 @@ Hangi doktora gideceğinizi bilmiyorsanız, ana sayfadaki **"AI Branş Yönlendi
 - Şikayetlerinizi, belirtilerinizi veya şüphelendiğiniz durumu kısaca yazın (Örn: *"Çocuğumda yürüme güçlüğü ve kas zayıflığı var"*).
 - **Analiz Et** butonuna bastığınızda, yapay zeka belirtileri yorumlayarak randevu almanız gereken en doğru polikliniği (Örn: *Çocuk Nörolojisi*) size önerecektir.
 
+## ⚠️ Önemli Uyarı (Feragatname)
+
+> **Bu proje bir konsept/prototip çalışmasıdır ve tıbbi tavsiye niteliği taşımaz.**
+> - Platformda yer alan tüm doktor isimleri, uzmanlıkları, makale başlıkları ve özetleri **sadece örnek teşkil etmesi amacıyla (sahte veri - mock data)** oluşturulmuştur.
+> - **AI Branş Asistanı** tamamen sistemin nasıl işleyeceğini (UI/UX) göstermek amacıyla hazırlanmış bir simülasyondur. Gerçek bir tıbbi teşhis modeli içermez ve verdiği yönlendirmeler bağlayıcı değildir. Sağlık sorunlarınız için her zaman gerçek bir uzmana başvurun.
+
 ## 💻 Geliştirici İçin: Kurulum ve Çalıştırma
 
 Projeyi kendi ortamınızda (lokal) çalıştırmak için aşağıdaki adımları izleyebilirsiniz:
