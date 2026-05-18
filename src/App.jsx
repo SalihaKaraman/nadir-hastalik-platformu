@@ -506,37 +506,61 @@ function App() {
 
       {/* ABOUT PAGE */}
       {activeTab === "about" && (
-        <main className="pt-12 pb-20 min-h-screen max-w-container-max mx-auto px-margin-desktop">
-          <header className="py-12 max-w-3xl mx-auto text-center">
-            <h1 className="font-display-lg text-display-lg text-on-background mb-6">Hakkımızda</h1>
-            <p className="font-body-lg text-body-lg text-on-surface-variant">Nadir hastalıklarla mücadele eden bireyleri uzmanlık ve empatiyle destekliyoruz.</p>
-          </header>
-          
-          <section className="max-w-3xl mx-auto space-y-8">
-            <div className="bg-surface-container-lowest border border-outline-variant rounded-2xl p-8 md:p-12 shadow-sm">
-              <h2 className="font-headline-lg text-headline-lg text-primary mb-6">Amacımız</h2>
-              <p className="font-body-md text-body-md text-on-surface-variant mb-4 leading-relaxed">
-                Nadir hastalıklarla ilgili doğru bilgiye ve o alana spesifik olarak odaklanmış uzman doktora ulaşmak çoğu zaman yorucu, uzun ve karmaşık bir süreçtir. Uluslararası bilimsel makalelerin dil bariyeri ve ağır tıbbi terimler içermesi, hastaların ve ailelerinin kendi hastalıkları hakkında güvenilir bilgi edinmesini daha da zorlaştırmaktadır.
-              </p>
-              <p className="font-body-md text-body-md text-on-surface-variant mb-6 leading-relaxed">
-                <strong>RareCare (NadirRehber)</strong> bu engelleri ortadan kaldırmak için oluşturulmuştur. Platformumuzun üç temel odak noktası şunlardır:
-              </p>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-secondary mt-1">check_circle</span>
-                  <p className="font-body-md text-body-md text-on-surface-variant"><strong>Uzman Doktorlara Hızlı Erişim:</strong> Hastaların kendi spesifik hastalıkları konusunda uzmanlaşmış doktorlara doğrudan ulaşmasını sağlamak.</p>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-secondary mt-1">check_circle</span>
-                  <p className="font-body-md text-body-md text-on-surface-variant"><strong>Erişilebilir Bilimsel Kaynaklar:</strong> Tıp dergilerindeki güncel makaleleri derleyerek A'dan Z'ye ulaşılabilir bir kütüphane sunmak.</p>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-secondary mt-1">check_circle</span>
-                  <p className="font-body-md text-body-md text-on-surface-variant"><strong>Yapay Zeka Destekli Yönlendirme:</strong> Karmaşık semptomlar yaşayan hastaların hangi tıbbi birime gitmeleri gerektiği konusunda AI aracılığıyla ön rehberlik sunmak.</p>
-                </li>
-              </ul>
+        <main>
+          {/* Hero Section */}
+          <section className="relative bg-surface-container-low overflow-hidden py-16 md:py-24">
+            <div className="px-margin-desktop max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="z-10">
+                <h1 className="font-display-lg text-display-lg text-primary mb-6 leading-tight">Nadir Hastalıklarda Umut ve Bilim Bir Arada</h1>
+                <p className="font-body-lg text-body-lg text-on-surface-variant mb-8 max-w-xl">
+                  RareCare, nadir hastalıklarla mücadele eden hastaları ve ailelerini, dünyanın dört bir yanındaki uzmanlarla ve en güncel araştırmalarla buluşturuyor. Amacımız, belirsizliği ortadan kaldırmak ve bilimin ışığında toplumsal dayanışma oluşturmaktır.
+                </p>
+                <div className="flex flex-wrap gap-4">
+                  <button onClick={() => setActiveTab("makaleler")} className="bg-primary text-on-primary px-8 py-3 rounded-xl font-label-md text-label-md hover:shadow-lg transition-all">Araştırmaları İncele</button>
+                </div>
+              </div>
+              <div className="relative">
+                <div className="rounded-full overflow-hidden aspect-square shadow-xl border-4 border-white">
+                  <img alt="Laboratory Research" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDI5tA2DLyrCVADdK9VGY2vJkejAUxx4XweDFh4pL6iDZ3LQ1BItKNUb7IPkVE9qRLR8qJODlH_IdP75rt6DOnW7buWquz1XhI9-rrTYgC2A4DxXxtZbq-t9KedMd9ukNTlhhGKFFAOH6U0aMUeYA9M0Z14vtboXQygup6GpYqmMG4hdK_MpAKI8uRLaS4Gf2bQ-3iGUlR5UEMmwFoHusjxCM2Jvz7E7hGkjeojyyRMWFoTS4saBTOfvjGSvmaXEqw8F3yWT-p4K3ch" />
+                </div>
+                {/* Decorative element */}
+                <div className="absolute -bottom-6 -left-6 bg-secondary-container p-6 rounded-2xl shadow-lg hidden md:block">
+                  <div className="flex items-center gap-3">
+                    <span className="material-symbols-outlined text-secondary text-4xl">biotech</span>
+                    <div>
+                      <p className="font-headline-md text-headline-md text-on-secondary-container">500+</p>
+                      <p className="font-label-sm text-label-sm text-on-secondary-container">Aktif Araştırma</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            
+          </section>
+
+          {/* Vision & Mission */}
+          <section className="py-20 px-margin-desktop max-w-container-max mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-gutter mb-12">
+              <div className="bg-white p-10 rounded-3xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow group">
+                <div className="w-12 h-12 bg-primary-fixed rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <span className="material-symbols-outlined text-primary text-3xl">visibility</span>
+                </div>
+                <h2 className="font-headline-lg text-headline-lg text-on-surface mb-4">Vizyonumuz</h2>
+                <p className="font-body-md text-body-md text-on-surface-variant">
+                  Nadir hastalıkların tanısı ve tedavisi önündeki tüm engellerin kalktığı, her hastanın en ileri tıbbi bilgiye ve uzman desteğine eşit koşullarda ulaştığı bir dünya hayal ediyoruz. Bilgiyi demokratikleştirerek sağlıkta adaleti sağlamayı hedefliyoruz.
+                </p>
+              </div>
+              <div className="bg-white p-10 rounded-3xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow group">
+                <div className="w-12 h-12 bg-secondary-fixed rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <span className="material-symbols-outlined text-secondary text-3xl">flag</span>
+                </div>
+                <h2 className="font-headline-lg text-headline-lg text-on-surface mb-4">Misyonumuz</h2>
+                <p className="font-body-md text-body-md text-on-surface-variant">
+                  Hasta odaklı bir yaklaşımla, bilimsel mükemmeliyeti klinik empatiyle birleştiriyoruz. Dünyanın en nadir vakaları için bile çözüm odaklı bir ağ kurarak, hasta hikayelerini veri ile, uzmanları ise umut ile buluşturuyoruz.
+                </p>
+              </div>
+            </div>
+
+            {/* Disclaimer */}
             <div className="bg-primary-container text-on-primary-container rounded-2xl p-8 md:p-12 shadow-sm">
               <h2 className="font-headline-md text-headline-md mb-4 flex items-center gap-2">
                 <span className="material-symbols-outlined">warning</span> Önemli Uyarı
@@ -544,6 +568,90 @@ function App() {
               <p className="font-body-md text-body-md opacity-90 leading-relaxed">
                 Bu proje bir konsept/prototip çalışmasıdır ve tıbbi tavsiye niteliği taşımaz. Platformda yer alan tüm doktor isimleri, uzmanlıkları ve makaleler örnek teşkil etmesi amacıyla sahte verilerle oluşturulmuştur. AI asistanı sadece sistemin nasıl işleyeceğini göstermek amacıyla hazırlanan bir simülasyondur. Sağlık sorunlarınız için her zaman gerçek bir uzmana başvurun.
               </p>
+            </div>
+          </section>
+
+          {/* Our Approach */}
+          <section className="bg-surface-dim py-24">
+            <div className="px-margin-desktop max-w-container-max mx-auto">
+              <div className="text-center mb-16">
+                <span className="font-label-md text-label-md text-primary bg-primary-fixed px-4 py-1 rounded-full">YAKLAŞIMIMIZ</span>
+                <h2 className="font-display-lg text-display-lg text-on-surface mt-4">Nadir Olanı Sıradanlaştırmak</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+                <div className="md:col-span-7 bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-center">
+                  <div className="w-full md:w-1/2 h-64 md:h-full">
+                    <img alt="Care" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAej8Xk693gUsEwbOpqVos1qtN-vVYoaacYyu1xV_KSUetbmEBGOxJVfeG7hF8KRu3jDN7rQFHWXnmItF4cWJUOcUAFvm4Hg6sdZkfVOCJ-sAhlXC8aY167MpVDFVrVL_ByQPNa9AVfSo7UGJ4Lpv6BAFyv8YkQg8J6PXQi3hu1ayyLOtqEEvCXAk9ZxMreMvrRHqLo1qT5mGAqccTs3qcO6gkGD5dLxHOH9jnfDKnjGW8L3kjnFgoHiyuW2kAjpXfLETFpK60WL2QO" />
+                  </div>
+                  <div className="p-8 md:w-1/2">
+                    <h3 className="font-headline-md text-headline-md text-primary mb-3">Klinik Empati</h3>
+                    <p className="font-body-md text-body-md text-on-surface-variant">
+                      Sadece semptomları değil, insanı görüyoruz. Hastaların yaşadığı zorlukları anlıyor, süreç boyunca psikolojik ve sosyal destek mekanizmalarını canlı tutuyoruz.
+                    </p>
+                  </div>
+                </div>
+                <div className="md:col-span-5 bg-tertiary-container text-white p-8 rounded-3xl flex flex-col justify-center">
+                  <span className="material-symbols-outlined text-tertiary-fixed text-5xl mb-4">science</span>
+                  <h3 className="font-headline-md text-headline-md mb-3">Bilimsel Titizlik</h3>
+                  <p className="font-body-md text-body-md opacity-90">
+                    Veriye dayalı, kanıta dayalı tıp prensiplerinden ödün vermiyoruz. Platformumuzdaki her makale ve uzman görüşü sıkı bir denetim sürecinden geçer.
+                  </p>
+                </div>
+                <div className="md:col-span-12 bg-white rounded-3xl border border-outline-variant p-8 flex flex-col md:flex-row items-center gap-8">
+                  <div className="flex-1">
+                    <h3 className="font-headline-md text-headline-md text-secondary mb-3">Küresel İşbirliği</h3>
+                    <p className="font-body-md text-body-md text-on-surface-variant">
+                      Bilgi sınır tanımaz. RareCare, kıtalar arası uzman ağları kurarak en nadir hastalıklar için bile global bir konsültasyon zemini hazırlar. Bir hastanın çözümü dünyanın öbür ucunda olabilir ve biz o bağı kurarız.
+                    </p>
+                  </div>
+                  <div className="flex-shrink-0 flex gap-4">
+                    <div className="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center border border-outline-variant">
+                      <span className="material-symbols-outlined text-primary">public</span>
+                    </div>
+                    <div className="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center border border-outline-variant">
+                      <span className="material-symbols-outlined text-primary">groups</span>
+                    </div>
+                    <div className="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center border border-outline-variant">
+                      <span className="material-symbols-outlined text-primary">hub</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Values Section */}
+          <section className="py-24 px-margin-desktop max-w-container-max mx-auto">
+            <h2 className="font-headline-lg text-headline-lg text-center mb-16">Temel Değerlerimiz</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
+              <div className="text-center group">
+                <div className="w-20 h-20 mx-auto bg-surface-container-high rounded-full flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-sm">
+                  <span className="material-symbols-outlined text-4xl">verified_user</span>
+                </div>
+                <h4 className="font-headline-md text-headline-md text-on-surface mb-2">Güven</h4>
+                <p className="font-body-md text-body-md text-on-surface-variant">Şeffaf süreçler ve güvenilir veri.</p>
+              </div>
+              <div className="text-center group">
+                <div className="w-20 h-20 mx-auto bg-surface-container-high rounded-full flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-sm">
+                  <span className="material-symbols-outlined text-4xl">lightbulb</span>
+                </div>
+                <h4 className="font-headline-md text-headline-md text-on-surface mb-2">Yenilik</h4>
+                <p className="font-body-md text-body-md text-on-surface-variant">Tıbbi teknolojide son trendler.</p>
+              </div>
+              <div className="text-center group">
+                <div className="w-20 h-20 mx-auto bg-surface-container-high rounded-full flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-sm">
+                  <span className="material-symbols-outlined text-4xl">volunteer_activism</span>
+                </div>
+                <h4 className="font-headline-md text-headline-md text-on-surface mb-2">Şefkat</h4>
+                <p className="font-body-md text-body-md text-on-surface-variant">Her vakanın arkasındaki yaşam.</p>
+              </div>
+              <div className="text-center group">
+                <div className="w-20 h-20 mx-auto bg-surface-container-high rounded-full flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-sm">
+                  <span className="material-symbols-outlined text-4xl">diversity_3</span>
+                </div>
+                <h4 className="font-headline-md text-headline-md text-on-surface mb-2">Topluluk</h4>
+                <p className="font-body-md text-body-md text-on-surface-variant">Birlikte daha güçlüyüz.</p>
+              </div>
             </div>
           </section>
         </main>
