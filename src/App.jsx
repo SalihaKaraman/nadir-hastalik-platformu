@@ -90,7 +90,7 @@ const MAKALELER = [
 ];
 
 function App() {
-  const [activeTab, setActiveTab] = useState("home"); // "home", "makaleler"
+  const [activeTab, setActiveTab] = useState("home"); // "home", "makaleler", "about"
   const [searchTerm, setSearchTerm] = useState("");
   const [isAiWidgetOpen, setIsAiWidgetOpen] = useState(false);
   const [aiInput, setAiInput] = useState("");
@@ -98,6 +98,55 @@ function App() {
     { role: "assistant", content: "Merhaba! Ben RareCare AI. Nadir hastalıklar veya tedavi süreçleri hakkında merak ettiğiniz bilimsel bir sorunuz var mı?" }
   ]);
   const [isAiLoading, setIsAiLoading] = useState(false);
+
+  // Auth & Profile
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [savedArticles, setSavedArticles] = useState([1]);
+  const [readHistory, setReadHistory] = useState([
+    { id: 2, date: "Bugün 14:30" }
+  ]);
+  const [articleNotes, setArticleNotes] = useState({
+    1: "Bu makaledeki klinik veriler üzerine doktorumla görüşeceğim."
+  });
+
+  const handleSignIn = (e) => {
+    e.preventDefault();
+    if(email && password) {
+      setIsAuthenticated(true);
+      setIsSignInModalOpen(false);
+    }
+  };
+
+  const handleSignOut = () => {
+    setIsAuthenticated(false);
+    setIsProfileModalOpen(false);
+  };
+
+  const toggleSaveArticle = (id, e) => {
+    if (e) e.stopPropagation();
+    if (!isAuthenticated) {
+      setIsSignInModalOpen(true);
+      return;
+    }
+    setSavedArticles(prev => prev.includes(id) ? prev.filter(aId => aId !== id) : [...prev, id]);
+  };
+
+  const handleArticleRead = (id) => {
+    if (isAuthenticated) {
+      if (!readHistory.some(h => h.id === id)) {
+        setReadHistory(prev => [{ id, date: "Bugün" }, ...prev]);
+      }
+    }
+  };
+
+  const handleNoteChange = (id, note) => {
+    setArticleNotes(prev => ({ ...prev, [id]: note }));
+  };
 
   const filtrelenmişDoktorlar = DOKTORLAR.filter(doktor => 
     doktor.uzmanlik.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -166,7 +215,23 @@ function App() {
           </div>
           
           <div className="flex items-center gap-4">
-            <button className="bg-primary text-on-primary px-6 py-2.5 rounded-full font-label-md text-label-md hover:opacity-90 active:scale-95 transition-all">Sign In</button>
+            {isAuthenticated ? (
+              <button 
+                onClick={() => setIsProfileModalOpen(true)}
+                className="bg-secondary-container text-on-secondary-container px-6 py-2.5 rounded-full font-label-md text-label-md hover:opacity-90 active:scale-95 transition-all flex items-center gap-2"
+              >
+                <span className="material-symbols-outlined text-[18px]">person</span>
+                Profilim
+              </button>
+            ) : (
+              <button 
+                onClick={() => setIsSignInModalOpen(true)}
+                className="bg-primary text-on-primary px-6 py-2.5 rounded-full font-label-md text-label-md hover:opacity-90 active:scale-95 transition-all flex items-center gap-2"
+              >
+                <span className="material-symbols-outlined text-[18px]">login</span>
+                Sign In
+              </button>
+            )}
           </div>
         </nav>
       </header>
@@ -388,7 +453,12 @@ function App() {
                               <span className="font-label-md text-label-md text-primary font-bold">Tam Raporu İncele</span>
                               <span className="text-outline text-label-sm">Okuma süresi: 12 dk</span>
                             </div>
-                            <button className="bg-primary text-on-primary px-8 py-3 rounded-full font-label-md text-label-md font-bold shadow-lg">Makaleyi Oku</button>
+                            <div className="flex items-center gap-3">
+                              <button onClick={(e) => toggleSaveArticle(makale.id, e)} className={`${savedArticles.includes(makale.id) ? 'text-error' : 'text-primary'} hover:scale-110 transition-transform`}>
+                                <span className="material-symbols-outlined" style={{fontVariationSettings: savedArticles.includes(makale.id) ? "'FILL' 1" : "'FILL' 0"}}>bookmark</span>
+                              </button>
+                              <button onClick={() => handleArticleRead(makale.id)} className="bg-primary text-on-primary px-8 py-3 rounded-full font-label-md text-label-md font-bold shadow-lg">Makaleyi Oku</button>
+                            </div>
                           </div>
                         </div>
                       </article>
@@ -415,9 +485,14 @@ function App() {
                             )}
                             <span className="font-label-sm text-label-sm text-outline">{makale.yazar} • {makale.tarih}</span>
                           </div>
-                          <button className="text-primary font-bold flex items-center gap-1 hover:gap-2 transition-all font-label-md text-label-md">
-                            Devamını Oku <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
-                          </button>
+                          <div className="flex items-center gap-4">
+                            <button onClick={(e) => toggleSaveArticle(makale.id, e)} className={`${savedArticles.includes(makale.id) ? 'text-error' : 'text-primary'} hover:scale-110 transition-transform`}>
+                              <span className="material-symbols-outlined" style={{fontVariationSettings: savedArticles.includes(makale.id) ? "'FILL' 1" : "'FILL' 0"}}>bookmark</span>
+                            </button>
+                            <button onClick={() => handleArticleRead(makale.id)} className="text-primary font-bold flex items-center gap-1 hover:gap-2 transition-all font-label-md text-label-md">
+                              Devamını Oku <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </article>
@@ -565,6 +640,150 @@ function App() {
                 </button>
               </div>
               <p className="text-[10px] text-center mt-2 text-outline">Bilgiler araştırma amaçlıdır, doktora danışın.</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Sign In Modal */}
+      {isSignInModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-on-background/40 backdrop-blur-sm">
+          <div className="bg-surface-lowest rounded-2xl w-full max-w-md overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+            <div className="p-6 border-b border-outline-variant flex justify-between items-center">
+              <h2 className="font-headline-md text-headline-md font-bold text-on-surface">Giriş Yap</h2>
+              <button onClick={() => setIsSignInModalOpen(false)} className="text-outline hover:text-on-surface p-1">
+                <span className="material-symbols-outlined">close</span>
+              </button>
+            </div>
+            <form onSubmit={handleSignIn} className="p-6 space-y-4">
+              <div>
+                <label className="block font-label-sm text-label-sm text-on-surface-variant mb-1">E-posta</label>
+                <input 
+                  type="email" 
+                  required
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  className="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-2 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" 
+                  placeholder="ornek@email.com" 
+                />
+              </div>
+              <div>
+                <label className="block font-label-sm text-label-sm text-on-surface-variant mb-1">Şifre</label>
+                <input 
+                  type="password" 
+                  required
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  className="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-2 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" 
+                  placeholder="••••••••" 
+                />
+              </div>
+              <button type="submit" className="w-full bg-primary text-on-primary py-3 rounded-lg font-bold hover:opacity-90 transition-all mt-4">
+                Devam Et
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Profile Modal */}
+      {isProfileModalOpen && isAuthenticated && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-on-background/40 backdrop-blur-sm">
+          <div className="bg-surface-lowest rounded-2xl w-full max-w-3xl max-h-[85vh] flex flex-col overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+            <div className="p-6 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center font-display-lg text-headline-md">
+                  {email ? email[0].toUpperCase() : 'U'}
+                </div>
+                <div>
+                  <h2 className="font-headline-md text-headline-md font-bold text-on-surface">Profilim</h2>
+                  <p className="font-label-sm text-label-sm text-on-surface-variant">{email}</p>
+                </div>
+              </div>
+              <button onClick={() => setIsProfileModalOpen(false)} className="text-outline hover:text-on-surface p-1 bg-white rounded-full">
+                <span className="material-symbols-outlined">close</span>
+              </button>
+            </div>
+            
+            <div className="p-6 overflow-y-auto flex-1 space-y-8 bg-surface-lowest">
+              {/* Kaydedilenler */}
+              <div>
+                <h3 className="font-headline-sm text-[18px] font-bold text-primary flex items-center gap-2 mb-4 border-b border-outline-variant pb-2">
+                  <span className="material-symbols-outlined" style={{fontVariationSettings: "'FILL' 1"}}>bookmark</span>
+                  Kaydedilen Makaleler ({savedArticles.length})
+                </h3>
+                {savedArticles.length === 0 ? (
+                  <p className="text-on-surface-variant text-label-md">Henüz kaydedilmiş makale yok.</p>
+                ) : (
+                  <div className="grid grid-cols-1 gap-3">
+                    {savedArticles.map(id => {
+                      const article = MAKALELER.find(a => a.id === id);
+                      if(!article) return null;
+                      return (
+                        <div key={id} className="bg-surface-container border border-outline-variant rounded-xl p-4 flex flex-col gap-3">
+                          <div className="flex justify-between items-start gap-4">
+                            <h4 className="font-label-md text-label-md font-bold text-on-surface">{article.baslik}</h4>
+                            <button onClick={() => toggleSaveArticle(id)} className="text-primary hover:text-error transition-colors">
+                              <span className="material-symbols-outlined" style={{fontVariationSettings: "'FILL' 1"}}>bookmark</span>
+                            </button>
+                          </div>
+                          
+                          {/* Not Alanı */}
+                          <div className="bg-white rounded-lg border border-outline-variant overflow-hidden focus-within:border-primary transition-colors">
+                            <div className="bg-surface-container-low px-3 py-1 border-b border-outline-variant flex items-center gap-1">
+                              <span className="material-symbols-outlined text-[16px] text-outline">edit_note</span>
+                              <span className="text-[10px] font-bold text-outline uppercase tracking-wider">Kişisel Notunuz</span>
+                            </div>
+                            <textarea 
+                              className="w-full p-3 bg-transparent border-none focus:ring-0 text-label-md text-on-surface resize-none h-20 outline-none"
+                              placeholder="Bu makale hakkında not alın (Örn: Bu çalışmayı doktoruma soracağım...)"
+                              value={articleNotes[id] || ""}
+                              onChange={(e) => handleNoteChange(id, e.target.value)}
+                            />
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                )}
+              </div>
+
+              {/* Okuma Geçmişi */}
+              <div>
+                <h3 className="font-headline-sm text-[18px] font-bold text-secondary flex items-center gap-2 mb-4 border-b border-outline-variant pb-2">
+                  <span className="material-symbols-outlined">history</span>
+                  Okuma Geçmişi
+                </h3>
+                {readHistory.length === 0 ? (
+                  <p className="text-on-surface-variant text-label-md">Okuma geçmişiniz boş.</p>
+                ) : (
+                  <ul className="space-y-2">
+                    {readHistory.map((history, idx) => {
+                      const article = MAKALELER.find(a => a.id === history.id);
+                      if(!article) return null;
+                      return (
+                        <li key={idx} className="flex justify-between items-center p-3 hover:bg-surface-container-low rounded-lg transition-colors border border-transparent hover:border-outline-variant">
+                          <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center">
+                              <span className="material-symbols-outlined text-[16px]">article</span>
+                            </div>
+                            <p className="font-label-md text-label-md text-on-surface truncate max-w-sm md:max-w-md">{article.baslik}</p>
+                          </div>
+                          <span className="text-label-sm text-outline whitespace-nowrap">{history.date}</span>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                )}
+              </div>
+            </div>
+            <div className="p-4 border-t border-outline-variant bg-surface-container-low flex justify-end">
+              <button 
+                onClick={handleSignOut}
+                className="text-error font-bold px-4 py-2 hover:bg-error-container rounded-lg transition-colors flex items-center gap-2"
+              >
+                <span className="material-symbols-outlined">logout</span> Çıkış Yap
+              </button>
             </div>
           </div>
         </div>
