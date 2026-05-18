@@ -30,6 +30,12 @@ Hangi doktora gideceğinizi bilmiyorsanız, ana sayfadaki **"AI Branş Yönlendi
 - Şikayetlerinizi, belirtilerinizi veya şüphelendiğiniz durumu kısaca yazın (Örn: *"Çocuğumda yürüme güçlüğü ve kas zayıflığı var"*).
 - **Analiz Et** butonuna bastığınızda, yapay zeka belirtileri yorumlayarak randevu almanız gereken en doğru polikliniği (Örn: *Çocuk Nörolojisi*) size önerecektir.
 
+### 4. Kişiselleştirilmiş Kullanıcı Paneli (Profilim)
+Kullanıcılar platforma giriş yaparak ("Sign In") okuma süreçlerini kişiselleştirebilirler:
+- **Okuma Geçmişi:** İncelediğiniz tüm makaleler tarih/saat bilgisiyle profilinize kaydedilir.
+- **Makale Kaydetme (Bookmark):** İlgilendiğiniz araştırmaları tek tıkla kaydederek kütüphanenizde tutabilirsiniz.
+- **Kişisel Not Alma:** Kaydettiğiniz her makalenin altına, okurken aklınıza takılan soruları veya doktorunuza danışmak istediğiniz konuları not alabilirsiniz.
+
 ## ⚠️ Önemli Uyarı (Feragatname)
 
 > **Bu proje bir konsept/prototip çalışmasıdır ve tıbbi tavsiye niteliği taşımaz.**
@@ -54,4 +60,4 @@ npm run dev
 Uygulama başarıyla başlatıldığında tarayıcınız üzerinden `http://localhost:5173` adresinden platforma erişebilirsiniz.
 
 ---
-*Teknoloji Yığını: React.js, Vite, TailwindCSS, Lucide Icons.*
+*Teknoloji Yığını: React.js, Vite, TailwindCSS, Material Symbols. Tasarım dili: Clinical Empathy System (Glassmorphism).*

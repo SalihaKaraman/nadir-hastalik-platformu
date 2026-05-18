@@ -217,7 +217,7 @@ function App() {
           <div className="flex items-center gap-4">
             {isAuthenticated ? (
               <button 
-                onClick={() => setIsProfileModalOpen(true)}
+                onClick={() => setActiveTab("profile")}
                 className="bg-secondary-container text-on-secondary-container px-6 py-2.5 rounded-full font-label-md text-label-md hover:opacity-90 active:scale-95 transition-all flex items-center gap-2"
               >
                 <span className="material-symbols-outlined text-[18px]">person</span>
@@ -834,133 +834,120 @@ function App() {
         </div>
       )}
 
-      {/* Profile Modal */}
-      {isProfileModalOpen && isAuthenticated && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-surface text-on-surface font-body-md animate-in fade-in duration-200">
-          <header className="sticky top-0 z-50 w-full bg-surface dark:bg-on-surface-variant border-b border-outline-variant dark:border-outline">
-            <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop h-16 flex justify-between items-center">
-              <div className="flex items-center gap-gutter">
-                <span className="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">RareCare</span>
-                <nav className="hidden md:flex items-center gap-6">
-                  <span className="font-label-md text-label-md text-primary dark:text-primary-fixed-dim border-b-2 border-primary dark:border-primary-fixed-dim pb-1 cursor-default">Dashboard</span>
-                </nav>
-              </div>
-              <div className="flex items-center gap-4">
-                <button onClick={() => setIsProfileModalOpen(false)} className="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors">close</button>
-                <div className="h-8 w-[1px] bg-outline-variant"></div>
-                <div className="flex items-center gap-2 cursor-pointer group" onClick={handleSignOut}>
-                  <span className="material-symbols-outlined text-error" style={{fontVariationSettings: "'FILL' 1"}}>logout</span>
-                  <span className="font-label-md text-label-md text-error hidden sm:inline">Çıkış Yap</span>
-                </div>
-              </div>
+      {/* PROFILE PAGE */}
+      {activeTab === "profile" && isAuthenticated && (
+        <main className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12 pb-32 min-h-screen">
+          <div className="flex justify-between items-center mb-8">
+            <h1 className="font-display-lg text-display-lg text-on-background">Kullanıcı Paneli</h1>
+            <div className="flex items-center gap-2 cursor-pointer group" onClick={handleSignOut}>
+              <span className="material-symbols-outlined text-error" style={{fontVariationSettings: "'FILL' 1"}}>logout</span>
+              <span className="font-label-md text-label-md text-error hidden sm:inline">Çıkış Yap</span>
             </div>
-          </header>
-          <main className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12 pb-32">
-            <div className="grid grid-cols-12 gap-gutter">
-              <aside className="col-span-12 lg:col-span-3 space-y-6">
-                <div className="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm text-center">
-                  <div className="relative inline-block mb-4">
-                    <div className="w-32 h-32 rounded-full border-4 border-surface-container mx-auto bg-primary-container text-on-primary-container flex items-center justify-center font-display-lg text-[64px]">
-                      {email ? email[0].toUpperCase() : 'U'}
-                    </div>
-                    <div className="absolute bottom-1 right-1 bg-secondary w-6 h-6 rounded-full border-2 border-white flex items-center justify-center">
-                      <span className="material-symbols-outlined text-[14px] text-white" style={{fontVariationSettings: "'FILL' 1"}}>verified</span>
-                    </div>
+          </div>
+          <div className="grid grid-cols-12 gap-gutter">
+            <aside className="col-span-12 lg:col-span-3 space-y-6">
+              <div className="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm text-center">
+                <div className="relative inline-block mb-4">
+                  <div className="w-32 h-32 rounded-full border-4 border-surface-container mx-auto bg-primary-container text-on-primary-container flex items-center justify-center font-display-lg text-[64px]">
+                    {email ? email[0].toUpperCase() : 'U'}
                   </div>
-                  <h1 className="font-headline-md text-headline-md text-on-surface mb-1 truncate">{email.split('@')[0]}</h1>
-                  <p className="font-label-md text-label-md text-secondary mb-4 truncate">{email}</p>
-                  <div className="inline-flex items-center px-3 py-1 bg-surface-container-high rounded-full text-on-primary-fixed-variant font-label-sm text-label-sm mb-6">
-                    <span className="material-symbols-outlined text-[16px] mr-1">workspace_premium</span>
-                    Premium Üye
+                  <div className="absolute bottom-1 right-1 bg-secondary w-6 h-6 rounded-full border-2 border-white flex items-center justify-center">
+                    <span className="material-symbols-outlined text-[14px] text-white" style={{fontVariationSettings: "'FILL' 1"}}>verified</span>
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-primary p-4 rounded-xl text-white">
-                    <p className="font-label-sm text-label-sm opacity-80">Okunan</p>
-                    <p className="font-headline-md text-headline-md">{readHistory.length}</p>
-                  </div>
-                  <div className="bg-secondary p-4 rounded-xl text-white">
-                    <p className="font-label-sm text-label-sm opacity-80">Alınan Not</p>
-                    <p className="font-headline-md text-headline-md">{Object.keys(articleNotes).length}</p>
-                  </div>
+                <h2 className="font-headline-md text-headline-md text-on-surface mb-1 truncate">{email.split('@')[0]}</h2>
+                <p className="font-label-md text-label-md text-secondary mb-4 truncate">{email}</p>
+                <div className="inline-flex items-center px-3 py-1 bg-surface-container-high rounded-full text-on-primary-fixed-variant font-label-sm text-label-sm mb-6">
+                  <span className="material-symbols-outlined text-[16px] mr-1">workspace_premium</span>
+                  Premium Üye
                 </div>
-              </aside>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-primary p-4 rounded-xl text-white">
+                  <p className="font-label-sm text-label-sm opacity-80">Okunan</p>
+                  <p className="font-headline-md text-headline-md">{readHistory.length}</p>
+                </div>
+                <div className="bg-secondary p-4 rounded-xl text-white">
+                  <p className="font-label-sm text-label-sm opacity-80">Alınan Not</p>
+                  <p className="font-headline-md text-headline-md">{Object.keys(articleNotes).length}</p>
+                </div>
+              </div>
+            </aside>
 
-              <div className="col-span-12 lg:col-span-9 space-y-gutter">
-                {/* Kaydedilenler & Notlarım */}
-                <section>
-                  <div className="flex justify-between items-end mb-4">
-                    <div>
-                      <h2 className="font-headline-lg text-headline-lg text-on-surface">Kaydedilenler & Notlar</h2>
-                      <p className="font-body-md text-body-md text-on-surface-variant">Takip ettiğiniz önemli araştırmalar.</p>
-                    </div>
+            <div className="col-span-12 lg:col-span-9 space-y-gutter">
+              {/* Kaydedilenler & Notlarım */}
+              <section>
+                <div className="flex justify-between items-end mb-4">
+                  <div>
+                    <h2 className="font-headline-lg text-headline-lg text-on-surface">Kaydedilenler & Notlar</h2>
+                    <p className="font-body-md text-body-md text-on-surface-variant">Takip ettiğiniz önemli araştırmalar.</p>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {savedArticles.length === 0 ? (
-                      <div className="col-span-full p-8 text-center bg-surface-container-lowest border border-outline-variant rounded-xl text-on-surface-variant">
-                        Henüz kaydedilmiş makale yok.
-                      </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {savedArticles.length === 0 ? (
+                    <div className="col-span-full p-8 text-center bg-surface-container-lowest border border-outline-variant rounded-xl text-on-surface-variant">
+                      Henüz kaydedilmiş makale yok.
+                    </div>
+                  ) : (
+                    savedArticles.map(id => {
+                      const article = MAKALELER.find(a => a.id === id);
+                      if(!article) return null;
+                      return (
+                        <div key={id} className="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 hover:shadow-md transition-shadow flex flex-col group">
+                          <div className="flex items-start justify-between mb-3">
+                            <span className="px-2 py-1 bg-surface-container-high text-on-primary-fixed-variant text-[10px] uppercase font-bold rounded">{article.tur}</span>
+                            <span onClick={() => toggleSaveArticle(id)} className="material-symbols-outlined text-primary cursor-pointer" style={{fontVariationSettings: "'FILL' 1"}}>bookmark</span>
+                          </div>
+                          <h3 className="font-body-lg text-body-lg text-on-surface font-semibold mb-2 group-hover:text-primary transition-colors">{article.baslik}</h3>
+                          
+                          <div className="mt-auto pt-4 border-t border-outline-variant">
+                            <div className="bg-surface-container-low rounded-lg border border-outline-variant overflow-hidden focus-within:border-primary transition-colors">
+                              <div className="bg-surface-container px-3 py-1 flex items-center gap-1">
+                                <span className="material-symbols-outlined text-[16px] text-outline">edit_note</span>
+                                <span className="text-[10px] font-bold text-outline uppercase tracking-wider">Kişisel Notunuz</span>
+                              </div>
+                              <textarea 
+                                className="w-full p-3 bg-transparent border-none focus:ring-0 text-label-md text-on-surface resize-none h-20 outline-none"
+                                placeholder="Bu makale hakkında not alın..."
+                                value={articleNotes[id] || ""}
+                                onChange={(e) => handleNoteChange(id, e.target.value)}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    })
+                  )}
+                </div>
+              </section>
+
+              <div className="grid grid-cols-1 gap-gutter">
+                <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+                  <h2 className="font-headline-md text-headline-md text-on-surface mb-6 flex items-center gap-2">
+                    <span className="material-symbols-outlined">history</span> Okuma Geçmişi
+                  </h2>
+                  <div className="space-y-6">
+                    {readHistory.length === 0 ? (
+                      <p className="text-on-surface-variant text-label-md">Okuma geçmişiniz boş.</p>
                     ) : (
-                      savedArticles.map(id => {
-                        const article = MAKALELER.find(a => a.id === id);
+                      readHistory.map((history, idx) => {
+                        const article = MAKALELER.find(a => a.id === history.id);
                         if(!article) return null;
                         return (
-                          <div key={id} className="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 hover:shadow-md transition-shadow flex flex-col group">
-                            <div className="flex items-start justify-between mb-3">
-                              <span className="px-2 py-1 bg-surface-container-high text-on-primary-fixed-variant text-[10px] uppercase font-bold rounded">{article.tur}</span>
-                              <span onClick={() => toggleSaveArticle(id)} className="material-symbols-outlined text-primary cursor-pointer" style={{fontVariationSettings: "'FILL' 1"}}>bookmark</span>
-                            </div>
-                            <h3 className="font-body-lg text-body-lg text-on-surface font-semibold mb-2 group-hover:text-primary transition-colors">{article.baslik}</h3>
-                            
-                            <div className="mt-auto pt-4 border-t border-outline-variant">
-                              <div className="bg-surface-container-low rounded-lg border border-outline-variant overflow-hidden focus-within:border-primary transition-colors">
-                                <div className="bg-surface-container px-3 py-1 flex items-center gap-1">
-                                  <span className="material-symbols-outlined text-[16px] text-outline">edit_note</span>
-                                  <span className="text-[10px] font-bold text-outline uppercase tracking-wider">Kişisel Notunuz</span>
-                                </div>
-                                <textarea 
-                                  className="w-full p-3 bg-transparent border-none focus:ring-0 text-label-md text-on-surface resize-none h-20 outline-none"
-                                  placeholder="Bu makale hakkında not alın..."
-                                  value={articleNotes[id] || ""}
-                                  onChange={(e) => handleNoteChange(id, e.target.value)}
-                                />
-                              </div>
-                            </div>
+                          <div key={idx} className="relative pl-6 border-l-2 border-surface-container-high">
+                            <div className="absolute -left-[9px] top-0 w-4 h-4 bg-primary rounded-full border-4 border-white"></div>
+                            <p className="text-[11px] font-bold text-secondary uppercase mb-1">{history.date}</p>
+                            <h4 className="font-label-md text-label-md text-on-surface leading-snug">{article.baslik}</h4>
                           </div>
                         )
                       })
                     )}
                   </div>
                 </section>
-
-                <div className="grid grid-cols-1 gap-gutter">
-                  <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
-                    <h2 className="font-headline-md text-headline-md text-on-surface mb-6 flex items-center gap-2">
-                      <span className="material-symbols-outlined">history</span> Okuma Geçmişi
-                    </h2>
-                    <div className="space-y-6">
-                      {readHistory.length === 0 ? (
-                        <p className="text-on-surface-variant text-label-md">Okuma geçmişiniz boş.</p>
-                      ) : (
-                        readHistory.map((history, idx) => {
-                          const article = MAKALELER.find(a => a.id === history.id);
-                          if(!article) return null;
-                          return (
-                            <div key={idx} className="relative pl-6 border-l-2 border-surface-container-high">
-                              <div className="absolute -left-[9px] top-0 w-4 h-4 bg-primary rounded-full border-4 border-white"></div>
-                              <p className="text-[11px] font-bold text-secondary uppercase mb-1">{history.date}</p>
-                              <h4 className="font-label-md text-label-md text-on-surface leading-snug">{article.baslik}</h4>
-                            </div>
-                          )
-                        })
-                      )}
-                    </div>
-                  </section>
-                </div>
               </div>
             </div>
-          </main>
-        </div>
+          </div>
+        </main>
       )}
 
       {/* Mobile Navigation */}
