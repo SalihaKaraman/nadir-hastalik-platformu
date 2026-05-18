@@ -1,1 +1,23 @@
 @import "tailwindcss";
+@config "../tailwind.config.js";
+
+@layer utilities {
+  .glass-ai {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+body {
+  @apply bg-background text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container;
+}

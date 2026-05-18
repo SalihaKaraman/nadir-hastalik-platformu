@@ -1,81 +1,102 @@
 import React, { useState } from 'react';
-import { Search, BookOpen, MapPin, Hospital, X, Sparkles, BrainCircuit } from 'lucide-react';
 
 const DOKTORLAR = [
-  { id: 1, ad: "Prof. Dr. Ayşe Yılmaz", uzmanlik: "DMD (Duchenne Musküler Distrofi)", hastane: "Ankara Şehir Hastanesi", sehir: "Ankara", ilgiliHastaliklar: ["DMD", "Duchenne"] },
-  { id: 2, ad: "Doç. Dr. Mehmet Demir", uzmanlik: "SMA Tipi 1 ve 2", hastane: "Hacettepe Üniversitesi Tıp Fakültesi", sehir: "Ankara", ilgiliHastaliklar: ["SMA", "Spinal Musküler Atrofi"] },
-  { id: 3, ad: "Dr. Canan Erten", uzmanlik: "Kistik Fibrozis", hastane: "İstanbul Çapa Tıp Fakültesi", sehir: "İstanbul", ilgiliHastaliklar: ["Kistik Fibrozis"] },
-  { id: 4, ad: "Prof. Dr. Selim Ak", uzmanlik: "DMD Uzmanı", hastane: "Ege Üniversitesi Hastanesi", sehir: "İzmir", ilgiliHastaliklar: ["DMD"] },
-  { id: 5, ad: "Uzm. Dr. Kemal Yücel", uzmanlik: "Alport Sendromu", hastane: "Cerrahpaşa Tıp Fakültesi", sehir: "İstanbul", ilgiliHastaliklar: ["Alport", "Alport Sendromu"] }
+  { 
+    id: 1, 
+    ad: "Prof. Dr. Elif Yılmaz", 
+    uzmanlik: "Nadir Genetik Bozukluklar Uzmanı", 
+    hastane: "Ankara Şehir Hastanesi", 
+    sehir: "Ankara", 
+    ilgiliHastaliklar: ["DMD", "Duchenne"],
+    aciklama: "20 yılı aşkın süredir metabolik hastalıklar ve genomik tıp alanında öncü araştırmalar yürütmektedir.",
+    imgUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuDMXznDOIn78Um2xZkiCNfCBgeP-Yh0_jFCTTiB1vfuNfdkUvVoHS-reWJ-ChIEzCmJ97ATf74FIdWmHmO0g51PD66bfkwQRpLKMzf4cI0ruJpu9lEOeJxok3256x6FJlb3kFviSwdRU4r5kkkXL18SGHY7Kr4kgxYNUJqU53zHvTgj52Pl3doiUpjlBcWcDpGmExfq_KLyyQqcJeOviokgw2nm3XHL89YpFgqOLxyeWIyixgykxs5IQy2bONMCZq0N9Gy2FbpIWqlt",
+    yeniHasta: true
+  },
+  { 
+    id: 2, 
+    ad: "Doç. Dr. Caner Erkin", 
+    uzmanlik: "Nöromüsküler Hastalıklar", 
+    hastane: "Hacettepe Üniversitesi Tıp Fakültesi", 
+    sehir: "Ankara", 
+    ilgiliHastaliklar: ["SMA", "Spinal Musküler Atrofi"],
+    aciklama: "SMA ve DMD hastaları için geliştirilen yeni nesil gen terapileri üzerine uzmanlaşmış klinik araştırmacı.",
+    imgUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuBcpEN6DsyJNojnprTvj-rqE2iZrF07xZM3HT37FV4NvOJ0qmrAPZv5hLjvf0zmTGmtVt3Ukuur2bCoxZyRTB0IRAkXlvLvvY8fGGT3f063Q600BogTNTuVuBGxoMKPukZTYiPCC0l9axogNpzZzfBbsN0mHjJP9v27gqYHPpnSYRpeWAZvaBgbRI6Ps3t-PCOO9dFVEHsNZRN8BF5l6FK-B5AMnJIdcsvCRGXc6T7ZbBjYGK7Sg7vyLRcpfPmxz899ZzQ89f3EUZDX",
+    yeniHasta: true
+  },
+  { 
+    id: 3, 
+    ad: "Dr. Selin Demir", 
+    uzmanlik: "Pediatrik Onkoloji & Genetik", 
+    hastane: "İstanbul Çapa Tıp Fakültesi", 
+    sehir: "İstanbul", 
+    ilgiliHastaliklar: ["Nadir Tümörler", "Genetik"],
+    aciklama: "Çocukluk çağı nadir tümörleri ve kalıtsal kanser sendromları konusunda derinlemesine tanı çalışmaları.",
+    imgUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuBxO_3ljLnfyKsqs8NvAXZ19DIM6cmAGQkAcPx5LV-PM_X04v8eb6rsHOZ7j2dLN9ralLbr-LmaGhe_-IlkkkmsdEBBY34irPXyiW6RCL04YZ30H4YgU83Icu26JMo2Zjc5oeoYnEyQeFOh8Tw6f8bledUVEd9fnUx2b8ekwjLMBHR48Din7VIoNnMXJSSiiaikIVHX6Xuyx5OnSaXZA1og3Frj3osDnCalTOGt2aD96zV3Hpm8cZ-1LEYWg6MkhwWkn8UIPSS04cVB",
+    yeniHasta: false
+  }
 ];
 
 const MAKALELER = [
   { 
     id: 1, 
-    baslik: "Alport Sendromu Tedavisinde Yeni Yaklaşımlar", 
-    ozet: "Alport sendromu hastalarında böbrek fonksiyonlarının korunmasına yönelik geliştirilen yeni ilaçların faz 3 çalışmaları.", 
-    hastalik: "Alport Sendromu",
-    kaynak: "Kidney International",
-    yil: "2025"
+    baslik: "Gaucher Hastalığı Tip 1 Tedavisinde Yeni Yaklaşımlar", 
+    ozet: "Bu çalışma, enzim replasman tedavisine direnç gösteren Tip 1 Gaucher hastalarında substrat azaltma tedavisinin uzun vadeli etkinliğini ve güvenlik profilini incelemektedir.", 
+    hastalik: "Metabolik Bozukluklar",
+    tur: "Klinik Deney",
+    yazar: "Dr. Ayşe Yılmaz",
+    tarih: "12 Mar 2024",
+    imgUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuAmgKm5Svvw4KsqtBBvGPmwymaWEuRDGoNlvkA_6Loo_MDyCbEdmU7JbQVDpm42LKd-EHvI1LZ5WLdhvcZt1tvkerw4B6dY-a-LYkSIhkN3XLu6oonUzQ3Z3QooWxgiHYQyZwL4s27Kg8EFSlQtGd2RQ1vRwCPoISruA4hJv-Qa6clWgWkvBTjstmoAviDQMufQLeQgGMu_96eTObwIPM19G4MIzCaGwU2oyIY9L9ldkbIHOKAp1MxlMJLyAMxMzlg0rL-1tfsqA2wb"
   },
   { 
     id: 2, 
-    baslik: "Batten Hastalığı İçin Gen Terapisi Umudu", 
-    ozet: "NCL (Batten hastalığı) varyantlarında kullanılan viral vektör aracılı gen terapisinin çocuklardaki nörolojik etkileri.", 
-    hastalik: "Batten Hastalığı",
-    kaynak: "Neurology",
-    yil: "2024"
+    baslik: "Huntington Hastalığında Erken Tanı Yöntemleri", 
+    ozet: "Moleküler genetik testlerdeki son gelişmeler, Huntington hastalığı riski taşıyan bireylerde semptomlar ortaya çıkmadan yıllar önce teşhis konulmasına olanak tanımaktadır.", 
+    hastalik: "Genetik Hastalıklar",
+    tur: "Vaka Çalışması",
+    yazar: "Dr. Mehmet Can",
+    tarih: "05 Şub 2024",
+    imgUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuB60OqIN1CtI_SPjGHYBVTa5SWRq2AJNyd0glehGmbvd22s2BS6Xv2_vqR80Gi74ohGlp-_vPuAnIrqNOG1d16avxJBgTEmYONbKxZw9KBkQbPnGFkOhJ8aUy05Att4b8XKoVRVgQ8kTfu6tz7ci0CRJRg2w2hkY1qJLfd95miaDKo3oZwB3Q_4svPFO7FxzOe4wnvvkdgzgSnScgkjCtUESM7b-FEwLrAMAl6ja6JheqS_-KA6wOD4IcOeMVXMTqqLwGwIavWnN2Bw"
   },
   { 
     id: 3, 
-    baslik: "Cushing Sendromu Yönetiminde Yapay Zeka Desteği", 
-    ozet: "Nadir görülen Cushing sendromu tanısında ve tedavi planlamasında makine öğrenimi modellerinin kullanımı.", 
-    hastalik: "Cushing Sendromu",
-    kaynak: "Endocrine Reviews",
-    yil: "2026"
+    baslik: "CRISPR Teknolojisinin Nadir Hastalık Tedavisindeki Geleceği", 
+    ozet: "Gen düzenleme teknolojisindeki devrim niteliğindeki gelişmeler, daha önce tedavisi imkansız kabul edilen tek gen bozuklukları için umut ışığı oluyor.", 
+    hastalik: "Genetik",
+    tur: "Editörün Seçimi",
+    yazar: "Editör",
+    tarih: "01 Oca 2024",
+    imgUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuDiIyIYjVwY3mwNRn_K4bS5m6wu8TKYCyZvmE4iOIM3wObp9lMQvfsJctKiuIG4m_xo9XaT5frzzg4Ytt5h8lF3Z2sqHQFDTc0IcnU-3jOJeS00Huv-IHgedZoEgWem-Juiu-cPGxRlZ0bxRE33BjQwTsu3giq14-Boo2mPCECf1VzVsSrpNSqvca7wUPA9LUoS-HgfP38E0Tzp43UGOHM-cUMp65QBYGpTxrNxdQ-xJUlmB5nze4m03aa7Lb26C5W6HNIyPBppiSsK"
   },
   { 
     id: 4, 
-    baslik: "Duchenne Musküler Distrofi (DMD) ve Gen Terapisi", 
-    ozet: "DMD hastalarında gen terapisinin son aşama klinik sonuçları ve yan etkileri üzerine kapsamlı bir inceleme.", 
-    hastalik: "DMD",
-    kaynak: "Nature Medicine",
-    yil: "2026"
+    baslik: "SMA Hastalığında Multidisipliner Yaklaşım", 
+    ozet: "Spinal Müsküler Atrofi yönetiminde fizyoterapi, beslenme desteği ve yeni nesil ilaç tedavilerinin koordineli kullanımının yaşam kalitesi üzerindeki etkileri.", 
+    hastalik: "Nöroloji",
+    tur: "Bilgilendirme",
+    yazar: "RareCare Araştırma Grubu",
+    tarih: "20 Oca 2024",
+    imgUrl: null
   },
   { 
     id: 5, 
-    baslik: "Ehlers-Danlos Sendromu Alt Tiplerinin Genetik Analizi", 
-    ozet: "Farklı EDS alt tiplerinde görülen yeni genetik mutasyonların analizi ve tanı kriterlerinin güncellenmesi.", 
-    hastalik: "Ehlers-Danlos Sendromu",
-    kaynak: "Genetics in Medicine",
-    yil: "2025"
-  },
-  { 
-    id: 6, 
-    baslik: "Spinal Musküler Atrofi (SMA) İçin Yeni Biyobelirteçler", 
-    ozet: "SMA hastalarında tedaviye verilen yanıtın ölçülmesinde kullanılan yeni nesil biyobelirteçler.", 
-    hastalik: "SMA",
-    kaynak: "The Lancet",
-    yil: "2025"
-  },
-  { 
-    id: 7, 
-    baslik: "Zellweger Spektrum Bozukluklarında Erken Müdahale", 
-    ozet: "Zellweger sendromunda erken tanının yaşam kalitesine ve hayatta kalma süresine etkileri.", 
-    hastalik: "Zellweger Sendromu",
-    kaynak: "Pediatrics",
-    yil: "2023"
+    baslik: "Çocukluk Çağı Nadir Tümörlerinde İmmünoterapi", 
+    ozet: "Pediatrik onkolojide hedefe yönelik tedavilerin ve bağışıklık sistemi modülatörlerinin dirençli vakalardaki başarı oranları üzerine güncel veriler.", 
+    hastalik: "Onkoloji",
+    tur: "Klinik Araştırma",
+    yazar: "Dr. Elif Aras",
+    tarih: "15 Oca 2024",
+    imgUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuDfRf1a6BWJSwGLZKnsiL-qGIoO15OlRclApm_0-Z_G3JIULyhmyhlJ5fGgZZss-1wUMSmGi7V8Zc4abe_zT-rIeUW0yJa4B3YAK_hb63hDMEDklgzexzcuAci4h_WkBruR91eHCXDOVCqCRXVt22vGPx0IvVXVLFEXjriXRCf07q8FTCDkS0SA4hp5vAK8sOZNappveAdKijaIzWni4cNomgKDaByP6fuiqeZPI4-AdVIxfhhGz_foT1Sdlk31Yk6qFb1eu7MvEYSX"
   }
 ];
 
 function App() {
   const [activeTab, setActiveTab] = useState("home"); // "home", "makaleler"
   const [searchTerm, setSearchTerm] = useState("");
-  
-  // AI Modal States
-  const [isAiModalOpen, setIsAiModalOpen] = useState(false);
+  const [isAiWidgetOpen, setIsAiWidgetOpen] = useState(false);
   const [aiInput, setAiInput] = useState("");
-  const [aiSonuc, setAiSonuc] = useState(null);
+  const [aiMessages, setAiMessages] = useState([
+    { role: "assistant", content: "Merhaba! Ben RareCare AI. Nadir hastalıklar veya tedavi süreçleri hakkında merak ettiğiniz bilimsel bir sorunuz var mı?" }
+  ]);
   const [isAiLoading, setIsAiLoading] = useState(false);
 
   const filtrelenmişDoktorlar = DOKTORLAR.filter(doktor => 
@@ -84,291 +105,537 @@ function App() {
     doktor.ilgiliHastaliklar.some(h => h.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
-  const filtrelenmişMakaleler = MAKALELER.filter(makale => 
-    makale.hastalik.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    makale.baslik.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  // A'dan Z'ye sıralama (Türkçe karakterlere duyarlı)
   const siraliMakaleler = [...MAKALELER].sort((a, b) => a.baslik.localeCompare(b.baslik, 'tr-TR'));
 
   const handleAiSubmit = () => {
     if (!aiInput.trim()) return;
+    const newMessage = { role: "user", content: aiInput };
+    setAiMessages(prev => [...prev, newMessage]);
+    setAiInput("");
     setIsAiLoading(true);
-    setAiSonuc(null);
     
-    // AI düşünme süresi simülasyonu
+    // Simulate AI response
     setTimeout(() => {
-      const lowerInput = aiInput.toLowerCase();
-      let alan = "Tıbbi Genetik / Dahiliye";
-      let aciklama = "Belirttiğiniz bulgular çok yönlü bir değerlendirme gerektiriyor. Detaylı tanı ve yönlendirme için öncelikle Tıbbi Genetik veya Dahiliye bölümüne başvurmanız faydalı olacaktır.";
+      const lowerInput = newMessage.content.toLowerCase();
+      let responseContent = "Belirttiğiniz bulgular çok yönlü bir değerlendirme gerektiriyor. Detaylı tanı ve yönlendirme için öncelikle Tıbbi Genetik veya Dahiliye bölümüne başvurmanız faydalı olacaktır.";
       
-      if (lowerInput.includes("kas") || lowerInput.includes("yürüme") || lowerInput.includes("güçsüz") || lowerInput.includes("hareket")) {
-        alan = "Çocuk Nörolojisi / Nöroloji";
-        aciklama = "Kas zayıflığı ve hareket problemleri genellikle nöromüsküler hastalıklara (örn: SMA, DMD) işaret eder. Bu nedenle öncelikle bir Nöroloji uzmanına görünmelisiniz.";
-      } else if (lowerInput.includes("böbrek") || lowerInput.includes("idrar") || lowerInput.includes("kan")) {
-        alan = "Nefroloji";
-        aciklama = "Böbrek fonksiyonları ve idrarla ilgili belirtiler (örn: Alport Sendromu) doğrudan Nefroloji uzmanlığının alanına girmektedir.";
-      } else if (lowerInput.includes("solunum") || lowerInput.includes("öksürük") || lowerInput.includes("nefes") || lowerInput.includes("ciğer")) {
-        alan = "Göğüs Hastalıkları";
-        aciklama = "Solunum yolu problemleri Kistik Fibrozis gibi hastalıklarda sık görülür. Size en iyi bir Göğüs Hastalıkları uzmanı yardımcı olabilir.";
-      } else if (lowerInput.includes("kemik") || lowerInput.includes("eklem") || lowerInput.includes("esnek")) {
-        alan = "Romatoloji / Ortopedi";
-        aciklama = "Eklem esnekliği veya kemik ağrıları (örn: Ehlers-Danlos) gibi durumlarda Romatoloji veya Ortopedi kliniklerinden destek almalısınız.";
+      if (lowerInput.includes("kas") || lowerInput.includes("yürüme") || lowerInput.includes("güçsüz")) {
+        responseContent = "Kas zayıflığı ve hareket problemleri genellikle nöromüsküler hastalıklara (örn: SMA, DMD) işaret eder. Önerilen Birim: Çocuk Nörolojisi veya Nöroloji uzmanıdır.";
+      } else if (lowerInput.includes("gaucher")) {
+        responseContent = "Gaucher hastalığı, vücutta belirli bir enzimin eksikliği sonucu ortaya çıkan nadir bir genetik metabolizma hastalığıdır. Genellikle dalak ve karaciğer büyümesi, anemi ve kemik ağrıları gibi belirtiler gösterir. Hematoloji ve Tıbbi Genetik uzmanlarından destek alabilirsiniz.";
       }
 
-      setAiSonuc({ alan, aciklama });
+      setAiMessages(prev => [...prev, { role: "assistant", content: responseContent }]);
       setIsAiLoading(false);
     }, 1500);
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 relative">
-      {/* Navbar */}
-      <nav className="bg-white shadow-sm p-4 sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <h1 
-            className="text-2xl font-bold text-blue-600 tracking-tight cursor-pointer"
-            onClick={() => { setActiveTab("home"); setSearchTerm(""); }}
+    <div className="bg-background text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container min-h-screen">
+      
+      {/* Top Navigation Bar */}
+      <header className="bg-surface-lowest sticky top-0 z-40 border-b border-outline-variant dark:border-outline">
+        <nav className="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto h-20">
+          <div 
+            className="text-headline-md font-headline-md font-bold text-primary cursor-pointer"
+            onClick={() => setActiveTab("home")}
           >
-            NadirRehber
-          </h1>
-          <div className="hidden md:flex space-x-6 text-sm font-medium">
+            RareCare
+          </div>
+          
+          {/* Desktop Links */}
+          <div className="hidden md:flex gap-gutter items-center">
             <button 
-              onClick={() => { setActiveTab("home"); setSearchTerm(""); }} 
-              className={`transition ${activeTab === "home" ? "text-blue-600 font-bold" : "text-slate-600 hover:text-blue-500"}`}
+              onClick={() => setActiveTab("home")}
+              className={`font-label-md text-label-md transition-colors duration-200 pb-1 ${activeTab === 'home' ? 'text-primary font-bold border-b-2 border-primary' : 'text-on-surface-variant font-medium hover:text-primary'}`}
             >
-              Ana Sayfa
+              Home
             </button>
             <button 
-              onClick={() => setActiveTab("makaleler")} 
-              className={`transition ${activeTab === "makaleler" ? "text-blue-600 font-bold" : "text-slate-600 hover:text-blue-500"}`}
+              onClick={() => setActiveTab("makaleler")}
+              className={`font-label-md text-label-md transition-colors duration-200 pb-1 ${activeTab === 'makaleler' ? 'text-primary font-bold border-b-2 border-primary' : 'text-on-surface-variant font-medium hover:text-primary'}`}
             >
-              Makaleler
+              Articles
+            </button>
+            <button 
+              onClick={() => setActiveTab("about")}
+              className={`font-label-md text-label-md transition-colors duration-200 pb-1 ${activeTab === 'about' ? 'text-primary font-bold border-b-2 border-primary' : 'text-on-surface-variant font-medium hover:text-primary'}`}
+            >
+              About
             </button>
           </div>
-        </div>
-      </nav>
+          
+          <div className="flex items-center gap-4">
+            <button className="bg-primary text-on-primary px-6 py-2.5 rounded-full font-label-md text-label-md hover:opacity-90 active:scale-95 transition-all">Sign In</button>
+          </div>
+        </nav>
+      </header>
 
-      {/* İçerik */}
+      {/* HOME PAGE */}
       {activeTab === "home" && (
-        <>
-          {/* Header & Arama */}
-          <header className="py-12 px-4 text-center">
-            <h2 className="text-4xl font-extrabold mb-4 text-slate-800">Doğru Uzmanı, Doğru Bilgiyi Bulun</h2>
-            <p className="text-slate-500 max-w-xl mx-auto mb-8">Nadir hastalıklarla mücadelede uzman doktorlara ve AI destekli bilimsel makalelere ulaşın.</p>
-            
-            <div className="relative max-w-xl mx-auto">
-              <input 
-                type="text"
-                placeholder="Hastalık adı veya konu (Örn: DMD, SMA)"
-                className="w-full p-4 pl-12 rounded-full border border-slate-200 shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white transition-all"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-              <Search className="absolute left-4 top-4 text-slate-400" />
-              {searchTerm && (
-                <button onClick={() => setSearchTerm("")} className="absolute right-4 top-4 text-slate-400 hover:text-slate-600">
-                  <X size={20} />
+        <main>
+          {/* Hero Section */}
+          <section className="relative bg-surface-container-low pt-16 pb-24 px-margin-mobile md:px-margin-desktop overflow-hidden">
+            <div className="max-w-container-max mx-auto text-center relative z-10">
+              <h1 className="font-display-lg text-display-lg text-on-background mb-6 max-w-3xl mx-auto leading-tight">
+                Nadir Hastalıklarda Doğru Uzmana ve Bilgiye Ulaşın
+              </h1>
+              <p className="font-body-lg text-body-lg text-on-surface-variant mb-12 max-w-2xl mx-auto">
+                Dünya çapındaki uzman doktorlara ve en güncel klinik araştırmalara tek bir platformdan erişin. Empati ve uzmanlık bir arada.
+              </p>
+              
+              {/* Search Container */}
+              <div className="max-w-3xl mx-auto bg-surface-lowest p-2 rounded-xl shadow-sm border border-outline-variant flex flex-col md:flex-row items-center gap-2">
+                <div className="flex items-center w-full px-4 gap-3">
+                  <span className="material-symbols-outlined text-outline">search</span>
+                  <input 
+                    className="w-full border-none focus:outline-none focus:ring-0 bg-transparent py-4 text-body-md font-body-md text-on-surface" 
+                    placeholder="Hastalık, belirti veya doktor ismi ile arayın..." 
+                    type="text"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                  {searchTerm && (
+                    <button onClick={() => setSearchTerm("")} className="text-outline hover:text-on-surface">
+                      <span className="material-symbols-outlined">close</span>
+                    </button>
+                  )}
+                </div>
+                <button className="w-full md:w-auto bg-primary text-on-primary px-10 py-4 rounded-lg font-label-md text-label-md whitespace-nowrap hover:opacity-90 transition-all">
+                  Araştır
                 </button>
-              )}
+              </div>
+
+              <div className="mt-8 flex flex-wrap justify-center items-center gap-3">
+                <span className="text-label-sm text-on-surface-variant uppercase tracking-wider">Popüler Aramalar:</span>
+                <button onClick={() => setSearchTerm("Huntington")} className="bg-surface-container-high px-3 py-1 rounded-full text-label-sm text-primary hover:bg-primary-container hover:text-on-primary-container transition-colors">Huntington Hastalığı</button>
+                <button onClick={() => setSearchTerm("SMA")} className="bg-surface-container-high px-3 py-1 rounded-full text-label-sm text-primary hover:bg-primary-container hover:text-on-primary-container transition-colors">SMA Araştırmaları</button>
+                <button onClick={() => setSearchTerm("Genetik")} className="bg-surface-container-high px-3 py-1 rounded-full text-label-sm text-primary hover:bg-primary-container hover:text-on-primary-container transition-colors">Genetik Uzmanlar</button>
+              </div>
+            </div>
+            
+            {/* Abstract Background Visual */}
+            <div className="absolute inset-0 z-0 overflow-hidden opacity-20 pointer-events-none">
+              <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-primary-container to-secondary-container rounded-full blur-[120px] -translate-y-1/2 translate-x-1/4"></div>
+            </div>
+          </section>
+
+          {/* Featured Doctors Section */}
+          <section className="py-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+            <div className="flex justify-between items-end mb-12">
+              <div>
+                <h2 className="font-headline-lg text-headline-lg text-on-background mb-2">
+                  {searchTerm ? `Arama Sonuçları: Doktorlar (${filtrelenmişDoktorlar.length})` : "Öne Çıkan Uzmanlar"}
+                </h2>
+                <p className="font-body-md text-body-md text-on-surface-variant">Nadir genetik bozukluklar konusunda uzmanlaşmış profesyoneller.</p>
+              </div>
+              <button className="hidden md:flex items-center gap-1 text-primary font-label-md text-label-md hover:underline">
+                Tümünü Gör <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+              </button>
+            </div>
+            
+            {filtrelenmişDoktorlar.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+                {filtrelenmişDoktorlar.map(doktor => (
+                  <div key={doktor.id} className="bg-surface-lowest border border-outline-variant p-6 rounded-xl hover:shadow-md transition-shadow">
+                    <div className="flex items-start justify-between mb-6">
+                      <img alt="Doctor Profile" className="w-20 h-20 rounded-full object-cover" src={doktor.imgUrl} />
+                      {doktor.yeniHasta ? (
+                        <span className="flex items-center gap-1 text-secondary font-label-sm text-label-sm bg-secondary-container/30 px-3 py-1 rounded-full">
+                          <span className="w-2 h-2 rounded-full bg-secondary"></span>
+                          Yeni Hasta Kabul Ediyor
+                        </span>
+                      ) : (
+                        <span className="flex items-center gap-1 text-outline font-label-sm text-label-sm bg-surface-container-high px-3 py-1 rounded-full">
+                          <span className="w-2 h-2 rounded-full bg-outline"></span>
+                          Sadece Danışmanlık
+                        </span>
+                      )}
+                    </div>
+                    <h3 className="font-headline-md text-headline-md text-on-surface mb-1">{doktor.ad}</h3>
+                    <p className="font-label-md text-label-md text-primary mb-4">{doktor.uzmanlik}</p>
+                    <p className="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-2">
+                      {doktor.aciklama}
+                    </p>
+                    <div className="flex gap-3">
+                      <button className="flex-1 bg-primary text-on-primary py-2.5 rounded-lg font-label-md text-label-md hover:opacity-90 transition-all">Randevu Al</button>
+                      <button className="px-3 border border-outline-variant rounded-lg text-on-surface-variant hover:bg-surface-container transition-all">
+                        <span className="material-symbols-outlined">description</span>
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center p-12 border border-outline-variant rounded-xl text-outline">
+                Aramanıza uygun uzman bulunamadı.
+              </div>
+            )}
+          </section>
+
+          {/* CTA Section: Medical Library */}
+          {!searchTerm && (
+            <section className="py-16 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto mb-20">
+              <div className="bg-inverse-surface text-inverse-on-surface rounded-2xl overflow-hidden flex flex-col md:flex-row shadow-lg">
+                <div className="flex-1 p-10 md:p-16">
+                  <div className="flex items-center gap-2 mb-6">
+                    <span className="bg-primary-container text-on-primary-container px-3 py-1 rounded-full font-label-sm text-label-sm uppercase tracking-widest">Kütüphane</span>
+                    <span className="text-label-sm opacity-70">Güncel Yayınlar</span>
+                  </div>
+                  <h2 className="font-headline-lg text-headline-lg mb-4">En Son Klinik Araştırmalara Göz Atın</h2>
+                  <p className="font-body-md text-body-md opacity-80 mb-8 max-w-lg">
+                    Nadir hastalıklar dünyasındaki en son makaleler, tedavi kılavuzları ve klinik çalışma sonuçları uzmanlarımız tarafından incelenip özetlendi.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <button 
+                      onClick={() => setActiveTab("makaleler")}
+                      className="bg-primary text-on-primary px-8 py-3 rounded-lg font-label-md text-label-md hover:bg-opacity-90 transition-all"
+                    >
+                      Kütüphaneyi Keşfet
+                    </button>
+                  </div>
+                </div>
+                <div className="flex-1 bg-surface-container-highest min-h-[300px] relative hidden lg:block">
+                  <img alt="Medical Library" className="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGJwUBp84Fi7XT2GxAObyrZ9gvq3724LxCveiz-BbALiciABD8NVXcL6n8RuQgBYHeLUwEqKAV7aX_cDKxa3gLrPA45qQwX5bp9WgZcG0DvkKHcYL04gmUdO3-NjHCeHKS4dGTlv3L7XmYwfsxWIkc7l8-c8wqmmQTPGzNymQeLO9cCkjyPpGM-Br1wGOV3TWZgwzDgf-XihqHeJYzM1q319NjT_iOgSKAlUWsMV_9KvJYCUQ4xbnYMkKF1hlOWn_aZHC_OFVj7r4D" />
+                  <div className="absolute inset-0 bg-primary/10 mix-blend-multiply"></div>
+                </div>
+              </div>
+            </section>
+          )}
+        </main>
+      )}
+
+      {/* ARTICLES PAGE */}
+      {activeTab === "makaleler" && (
+        <main className="pt-12 pb-20 min-h-screen max-w-container-max mx-auto px-margin-desktop">
+          <header className="py-12 flex flex-col md:flex-row md:items-end justify-between gap-gutter">
+            <div className="max-w-2xl">
+              <h1 className="font-display-lg text-display-lg text-on-background mb-4">Tıbbi Araştırma Kütüphanesi</h1>
+              <p className="font-body-lg text-body-lg text-on-surface-variant">Nadir hastalıklar dünyasındaki en son klinik araştırmaları, vaka çalışmalarını ve uzman görüşlerini keşfedin.</p>
             </div>
           </header>
 
-          <main className="max-w-5xl mx-auto px-4 pb-20">
-            {/* ARAMA SONUÇLARI BÖLÜMÜ */}
-            {searchTerm !== "" && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                
-                {/* DOKTORLAR */}
-                {filtrelenmişDoktorlar.length > 0 && (
-                  <section className="mb-12">
-                    <h3 className="text-xl font-bold mb-6 text-slate-700 flex items-center gap-2">
-                      <Hospital className="text-blue-500" size={24}/> İlgili Uzman Doktorlar ({filtrelenmişDoktorlar.length})
-                    </h3>
-                    
-                    <div className="grid gap-4">
-                      {filtrelenmişDoktorlar.map(doktor => (
-                        <div key={doktor.id} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md hover:border-blue-200 transition-all flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                          <div>
-                            <h4 className="text-lg font-bold text-slate-800">{doktor.ad}</h4>
-                            <p className="text-blue-600 font-medium text-sm mb-2">{doktor.uzmanlik}</p>
-                            <div className="flex flex-wrap items-center text-slate-500 text-sm gap-x-6 gap-y-2">
-                              <span className="flex items-center gap-1.5"><Hospital size={16}/> {doktor.hastane}</span>
-                              <span className="flex items-center gap-1.5"><MapPin size={16}/> {doktor.sehir}</span>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+            {/* Sidebar / Filters */}
+            <aside className="md:col-span-3 flex flex-col gap-8">
+              <div>
+                <h3 className="font-label-md text-label-md text-outline uppercase tracking-wider mb-4">Hastalık Kategorileri</h3>
+                <nav className="flex flex-col gap-2">
+                  <label className="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container cursor-pointer transition-colors">
+                    <input className="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+                    <span className="font-body-md text-body-md">Genetik Hastalıklar</span>
+                  </label>
+                  <label className="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container cursor-pointer transition-colors">
+                    <input defaultChecked className="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+                    <span className="font-body-md text-body-md">Metabolik Bozukluklar</span>
+                  </label>
+                  <label className="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container cursor-pointer transition-colors">
+                    <input className="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+                    <span className="font-body-md text-body-md">Nörolojik Durumlar</span>
+                  </label>
+                  <label className="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container cursor-pointer transition-colors">
+                    <input className="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+                    <span className="font-body-md text-body-md">Onkoloji (Nadir)</span>
+                  </label>
+                </nav>
+              </div>
+
+              <div className="p-6 bg-primary-container rounded-xl text-on-primary-container">
+                <span className="material-symbols-outlined text-[32px] mb-3">lightbulb</span>
+                <h4 className="font-headline-md text-headline-md mb-2">Hala Aradığınızı Bulamadınız mı?</h4>
+                <p className="font-body-md text-body-md mb-4 opacity-90">Yapay zeka asistanımız binlerce makaleyi sizin için tarayabilir.</p>
+                <button 
+                  onClick={() => setIsAiWidgetOpen(true)}
+                  className="bg-on-primary-container text-primary-container w-full py-2 rounded-lg font-label-md text-label-md font-bold"
+                >
+                  Asistanı Başlat
+                </button>
+              </div>
+            </aside>
+
+            {/* Main Content Grid */}
+            <section className="md:col-span-9">
+              <div className="flex justify-between items-center mb-6">
+                <span className="font-label-md text-label-md text-on-surface-variant">{siraliMakaleler.length} sonuç gösteriliyor</span>
+                <div className="flex items-center gap-2 font-label-md text-label-md">
+                  <span className="text-outline">Sırala:</span>
+                  <select className="bg-transparent border-none focus:outline-none focus:ring-0 font-bold text-primary p-0">
+                    <option>Alfabetik</option>
+                    <option>En Yeni</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+                {siraliMakaleler.map((makale, idx) => {
+                  if (makale.tur === "Editörün Seçimi") {
+                    return (
+                      <article key={makale.id} className="lg:col-span-2 bg-primary-fixed border border-outline-variant rounded-xl overflow-hidden hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)] transition-all flex flex-col md:flex-row">
+                        <div className="md:w-1/3 h-48 md:h-auto overflow-hidden">
+                          <img alt="Makale Görseli" className="w-full h-full object-cover" src={makale.imgUrl} />
+                        </div>
+                        <div className="p-8 flex-1 flex flex-col">
+                          <div className="flex flex-wrap gap-2 mb-4">
+                            <span className="bg-primary text-on-primary px-3 py-1 rounded-full font-label-sm text-label-sm">{makale.tur}</span>
+                            <span className="bg-surface-container-highest text-primary px-3 py-1 rounded-full font-label-sm text-label-sm">{makale.hastalik}</span>
+                          </div>
+                          <h2 className="font-headline-lg text-headline-lg text-on-primary-fixed mb-4">{makale.baslik}</h2>
+                          <p className="font-body-md text-body-md text-on-primary-fixed-variant mb-6">
+                            {makale.ozet}
+                          </p>
+                          <div className="mt-auto flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <span className="font-label-md text-label-md text-primary font-bold">Tam Raporu İncele</span>
+                              <span className="text-outline text-label-sm">Okuma süresi: 12 dk</span>
                             </div>
+                            <button className="bg-primary text-on-primary px-8 py-3 rounded-full font-label-md text-label-md font-bold shadow-lg">Makaleyi Oku</button>
                           </div>
-                          <button className="w-full md:w-auto bg-blue-50 text-blue-600 px-6 py-2.5 rounded-xl text-sm font-bold hover:bg-blue-600 hover:text-white transition-colors">
-                            Randevu Al
+                        </div>
+                      </article>
+                    );
+                  }
+
+                  return (
+                    <article key={makale.id} className="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-all flex flex-col">
+                      <div className="p-6 flex-1 flex flex-col">
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          <span className="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm">{makale.hastalik}</span>
+                          <span className="bg-surface-container-highest text-primary px-3 py-1 rounded-full font-label-sm text-label-sm">{makale.tur}</span>
+                        </div>
+                        <h2 className="font-headline-md text-headline-md text-on-surface mb-3">{makale.baslik}</h2>
+                        <p className="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-3">
+                          {makale.ozet}
+                        </p>
+                        <div className="mt-auto flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            {makale.imgUrl && (
+                              <div className="w-8 h-8 rounded-full bg-surface-dim overflow-hidden">
+                                <img alt="Yazar" className="w-full h-full object-cover" src={makale.imgUrl} />
+                              </div>
+                            )}
+                            <span className="font-label-sm text-label-sm text-outline">{makale.yazar} • {makale.tarih}</span>
+                          </div>
+                          <button className="text-primary font-bold flex items-center gap-1 hover:gap-2 transition-all font-label-md text-label-md">
+                            Devamını Oku <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
                           </button>
                         </div>
-                      ))}
-                    </div>
-                  </section>
-                )}
-
-                {/* MAKALELER */}
-                {filtrelenmişMakaleler.length > 0 && (
-                  <section className={filtrelenmişDoktorlar.length > 0 ? "pt-8 border-t border-slate-200" : "pt-2"}>
-                    <h3 className="text-xl font-bold mb-6 text-slate-700 flex items-center gap-2">
-                      <BookOpen className="text-emerald-500" size={24}/> İlgili Bilimsel Makaleler ({filtrelenmişMakaleler.length})
-                    </h3>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {filtrelenmişMakaleler.map(makale => (
-                        <div key={makale.id} className="bg-white p-6 rounded-2xl shadow-sm border-l-4 border-l-emerald-400 border-slate-100 hover:shadow-md transition flex flex-col h-full">
-                          <div className="mb-3">
-                            <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest bg-emerald-50 px-2 py-1 rounded">
-                              {makale.kaynak} • {makale.yil}
-                            </span>
-                          </div>
-                          <h4 className="font-bold text-slate-800 mb-2 leading-snug flex-grow">{makale.baslik}</h4>
-                          <p className="text-slate-500 text-sm line-clamp-3 mb-5 font-light">{makale.ozet}</p>
-                          
-                          <button className="flex items-center justify-center gap-2 text-xs font-bold text-purple-600 bg-purple-50 px-4 py-2.5 rounded-xl hover:bg-purple-600 hover:text-white transition-all group">
-                            <span className="italic group-hover:scale-110 transition-transform">AI</span> 
-                            Türkçe Özetini Oku
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  </section>
-                )}
-
-                {filtrelenmişDoktorlar.length === 0 && filtrelenmişMakaleler.length === 0 && (
-                  <div className="text-center p-12 border-2 border-dashed border-slate-200 rounded-3xl text-slate-400 italic font-light">
-                    Bu aramayla ilgili henüz bir doktor veya makale bulunamadı.
-                  </div>
-                )}
+                      </div>
+                    </article>
+                  );
+                })}
               </div>
-            )}
-
-            {/* TANITIM KARTLARI (Sadece arama yokken) */}
-            {searchTerm === "" && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-in fade-in duration-700 max-w-4xl mx-auto">
-                <div 
-                  className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:border-emerald-200 transition group cursor-pointer" 
-                  onClick={() => setActiveTab("makaleler")}
-                >
-                  <div className="bg-emerald-50 w-14 h-14 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-emerald-600 transition-colors">
-                    <BookOpen className="text-emerald-500 group-hover:text-white" size={28} />
-                  </div>
-                  <h3 className="font-bold text-xl mb-3">Bilimsel Yayınlar</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed font-light">Dünyanın en prestijli tıp dergilerindeki güncel makalelere A'dan Z'ye kütüphanemizden erişin.</p>
-                </div>
-
-                <div 
-                  className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:border-purple-200 transition group cursor-pointer"
-                  onClick={() => setIsAiModalOpen(true)}
-                >
-                  <div className="bg-purple-50 w-14 h-14 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-purple-600 transition-colors">
-                    <Sparkles className="text-purple-600 group-hover:text-white" size={28} />
-                  </div>
-                  <h3 className="font-bold text-xl mb-3">AI Branş Yönlendirme</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed font-light">Belirtilerinizi veya şüphelendiğiniz tanıyı yapay zekaya yazın, sizi en doğru tıbbi birime yönlendirsin.</p>
-                </div>
-              </div>
-            )}
-          </main>
-        </>
-      )}
-
-      {/* Makaleler Sekmesi (Kütüphane Görünümü) */}
-      {activeTab === "makaleler" && (
-        <main className="max-w-5xl mx-auto px-4 py-12 pb-20 animate-in fade-in duration-500">
-          <div className="flex items-center gap-3 mb-4">
-            <BookOpen className="text-emerald-500" size={32} />
-            <h2 className="text-3xl font-extrabold text-slate-800">Makale Kütüphanesi</h2>
-          </div>
-          <p className="text-slate-500 mb-10 text-lg">Platformumuzdaki tüm makaleler A'dan Z'ye alfabetik olarak listelenmektedir.</p>
-          
-          <div className="space-y-5">
-            {siraliMakaleler.map(makale => (
-              <div key={makale.id} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md hover:border-blue-100 transition-all flex flex-col md:flex-row gap-6 items-start">
-                <div className="flex-grow">
-                  <div className="mb-3 flex items-center gap-3 flex-wrap">
-                    <span className="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1.5 rounded-full border border-blue-100">
-                      {makale.hastalik}
-                    </span>
-                    <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest bg-emerald-50 px-2 py-1 rounded">
-                      {makale.kaynak} • {makale.yil}
-                    </span>
-                  </div>
-                  <h4 className="text-xl font-bold text-slate-800 mb-3 leading-snug">{makale.baslik}</h4>
-                  <p className="text-slate-500 text-sm font-light leading-relaxed">{makale.ozet}</p>
-                </div>
-                <div className="w-full md:w-auto flex-shrink-0 pt-2 flex flex-col gap-2">
-                  <button className="w-full md:w-auto flex items-center justify-center gap-2 text-sm font-bold text-purple-600 bg-purple-50 px-6 py-3 rounded-xl hover:bg-purple-600 hover:text-white transition-all group">
-                    <span className="italic group-hover:scale-110 transition-transform">AI</span> 
-                    Türkçe Özet
-                  </button>
-                  <button className="w-full md:w-auto flex items-center justify-center gap-2 text-sm font-bold text-slate-600 bg-slate-50 px-6 py-3 rounded-xl hover:bg-slate-200 transition-all">
-                    Orijinal Kaynak
-                  </button>
-                </div>
-              </div>
-            ))}
+            </section>
           </div>
         </main>
       )}
 
-      {/* AI Modal */}
-      {isAiModalOpen && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-200">
-          <div className="bg-white rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden flex flex-col scale-in-95 animate-in duration-300">
-            <div className="bg-gradient-to-r from-purple-600 to-indigo-600 p-6 text-white flex justify-between items-center">
-              <div className="flex items-center gap-3">
-                <BrainCircuit size={28} />
-                <h3 className="text-xl font-bold">AI Branş Asistanı</h3>
-              </div>
-              <button 
-                onClick={() => {
-                  setIsAiModalOpen(false);
-                  setAiInput("");
-                  setAiSonuc(null);
-                }} 
-                className="hover:bg-white/20 p-2 rounded-full transition-colors"
-              >
-                <X size={24} />
-              </button>
+      {/* ABOUT PAGE */}
+      {activeTab === "about" && (
+        <main className="pt-12 pb-20 min-h-screen max-w-container-max mx-auto px-margin-desktop">
+          <header className="py-12 max-w-3xl mx-auto text-center">
+            <h1 className="font-display-lg text-display-lg text-on-background mb-6">Hakkımızda</h1>
+            <p className="font-body-lg text-body-lg text-on-surface-variant">Nadir hastalıklarla mücadele eden bireyleri uzmanlık ve empatiyle destekliyoruz.</p>
+          </header>
+          
+          <section className="max-w-3xl mx-auto space-y-8">
+            <div className="bg-surface-container-lowest border border-outline-variant rounded-2xl p-8 md:p-12 shadow-sm">
+              <h2 className="font-headline-lg text-headline-lg text-primary mb-6">Amacımız</h2>
+              <p className="font-body-md text-body-md text-on-surface-variant mb-4 leading-relaxed">
+                Nadir hastalıklarla ilgili doğru bilgiye ve o alana spesifik olarak odaklanmış uzman doktora ulaşmak çoğu zaman yorucu, uzun ve karmaşık bir süreçtir. Uluslararası bilimsel makalelerin dil bariyeri ve ağır tıbbi terimler içermesi, hastaların ve ailelerinin kendi hastalıkları hakkında güvenilir bilgi edinmesini daha da zorlaştırmaktadır.
+              </p>
+              <p className="font-body-md text-body-md text-on-surface-variant mb-6 leading-relaxed">
+                <strong>RareCare (NadirRehber)</strong> bu engelleri ortadan kaldırmak için oluşturulmuştur. Platformumuzun üç temel odak noktası şunlardır:
+              </p>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <span className="material-symbols-outlined text-secondary mt-1">check_circle</span>
+                  <p className="font-body-md text-body-md text-on-surface-variant"><strong>Uzman Doktorlara Hızlı Erişim:</strong> Hastaların kendi spesifik hastalıkları konusunda uzmanlaşmış doktorlara doğrudan ulaşmasını sağlamak.</p>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="material-symbols-outlined text-secondary mt-1">check_circle</span>
+                  <p className="font-body-md text-body-md text-on-surface-variant"><strong>Erişilebilir Bilimsel Kaynaklar:</strong> Tıp dergilerindeki güncel makaleleri derleyerek A'dan Z'ye ulaşılabilir bir kütüphane sunmak.</p>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="material-symbols-outlined text-secondary mt-1">check_circle</span>
+                  <p className="font-body-md text-body-md text-on-surface-variant"><strong>Yapay Zeka Destekli Yönlendirme:</strong> Karmaşık semptomlar yaşayan hastaların hangi tıbbi birime gitmeleri gerektiği konusunda AI aracılığıyla ön rehberlik sunmak.</p>
+                </li>
+              </ul>
             </div>
             
-            <div className="p-6 flex-grow flex flex-col gap-5">
-              <p className="text-slate-600 font-light text-sm">
-                Lütfen teşhisinizi, şüphelenilen hastalığı veya yaşadığınız belirtileri kısaca açıklayın. Yapay zeka sizi en doğru tıbbi uzmana yönlendirecektir.
+            <div className="bg-primary-container text-on-primary-container rounded-2xl p-8 md:p-12 shadow-sm">
+              <h2 className="font-headline-md text-headline-md mb-4 flex items-center gap-2">
+                <span className="material-symbols-outlined">warning</span> Önemli Uyarı
+              </h2>
+              <p className="font-body-md text-body-md opacity-90 leading-relaxed">
+                Bu proje bir konsept/prototip çalışmasıdır ve tıbbi tavsiye niteliği taşımaz. Platformda yer alan tüm doktor isimleri, uzmanlıkları ve makaleler örnek teşkil etmesi amacıyla sahte verilerle oluşturulmuştur. AI asistanı sadece sistemin nasıl işleyeceğini göstermek amacıyla hazırlanan bir simülasyondur. Sağlık sorunlarınız için her zaman gerçek bir uzmana başvurun.
               </p>
-              
-              <textarea 
-                className="w-full border border-slate-200 rounded-2xl p-4 focus:ring-2 focus:ring-purple-400 focus:border-purple-400 focus:outline-none resize-none bg-slate-50 hover:bg-white transition-colors"
-                rows="4"
-                placeholder="Örn: Çocuğumda yürüme güçlüğü ve kas zayıflığı var, hangi bölüme gitmeliyim?"
-                value={aiInput}
-                onChange={(e) => setAiInput(e.target.value)}
-              ></textarea>
-              
-              <button 
-                onClick={handleAiSubmit}
-                disabled={isAiLoading || !aiInput.trim()}
-                className="bg-purple-600 text-white font-bold py-3.5 rounded-2xl hover:bg-purple-700 transition-all flex justify-center items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
-              >
-                {isAiLoading ? "Analiz Ediliyor..." : <><Sparkles size={20}/> Doğru Uzmanı Bul</>}
-              </button>
+            </div>
+          </section>
+        </main>
+      )}
 
-              {aiSonuc && (
-                <div className="mt-2 bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-100 p-5 rounded-2xl animate-in fade-in slide-in-from-bottom-2">
-                  <h4 className="text-purple-800 font-bold mb-2 flex items-center gap-2">
-                    <Sparkles size={18} className="text-purple-500" />
-                    Önerilen Tıbbi Birim
-                  </h4>
-                  <p className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600 mb-3">{aiSonuc.alan}</p>
-                  <div className="w-full h-px bg-purple-200/50 mb-3"></div>
-                  <p className="text-slate-700 text-sm leading-relaxed">{aiSonuc.aciklama}</p>
-                </div>
-              )}
+      {/* Floating AI Widget Button */}
+      {!isAiWidgetOpen && (
+        <div className="fixed bottom-24 right-8 z-40 hidden md:block">
+          <div 
+            onClick={() => setIsAiWidgetOpen(true)}
+            className="glass-effect p-4 rounded-full shadow-lg border border-primary/20 flex items-center gap-3 cursor-pointer hover:scale-105 transition-transform"
+          >
+            <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-on-primary">
+              <span className="material-symbols-outlined">smart_toy</span>
+            </div>
+            <div className="pr-4">
+              <p className="font-label-sm text-label-sm text-primary font-bold uppercase tracking-tighter">AI Assistant</p>
+              <p className="font-body-md text-body-md text-on-background">Size nasıl yardımcı olabilirim?</p>
             </div>
           </div>
         </div>
       )}
+
+      {/* Expanded AI Widget */}
+      {isAiWidgetOpen && (
+        <div className="fixed bottom-8 right-8 z-50 flex flex-col items-end gap-4 max-w-[360px] w-full px-margin-mobile md:px-0">
+          <div className="glass-ai rounded-2xl shadow-2xl overflow-hidden flex flex-col w-full h-[480px] border border-outline-variant">
+            <div className="bg-gradient-to-r from-primary to-secondary p-4 flex justify-between items-center text-on-primary">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-md">
+                  <span className="material-symbols-outlined" style={{fontVariationSettings: "'FILL' 1"}}>smart_toy</span>
+                </div>
+                <div>
+                  <h4 className="font-label-md text-label-md font-bold">RareCare Asistan</h4>
+                  <p className="text-[10px] opacity-80 uppercase tracking-tighter">Yapay Zeka Destekli Analiz</p>
+                </div>
+              </div>
+              <button 
+                onClick={() => setIsAiWidgetOpen(false)}
+                className="hover:bg-white/10 p-1 rounded-lg transition-colors"
+              >
+                <span className="material-symbols-outlined">close</span>
+              </button>
+            </div>
+            
+            <div className="flex-1 p-4 overflow-y-auto space-y-4 flex flex-col">
+              {aiMessages.map((msg, i) => (
+                <div key={i} className={`p-3 rounded-xl max-w-[85%] ${msg.role === 'assistant' ? 'bg-surface-container-low rounded-tr-xl rounded-b-xl self-start' : 'bg-primary-container text-on-primary-container rounded-tl-xl rounded-b-xl self-end'}`}>
+                  <p className="text-label-sm">{msg.content}</p>
+                </div>
+              ))}
+              
+              {aiMessages.length === 1 && (
+                <div className="flex flex-col gap-2 mt-2">
+                  <button 
+                    onClick={() => setAiInput("Gaucher Hastalığı belirtileri nelerdir?")}
+                    className="text-left text-label-sm p-3 border border-primary/20 bg-white/50 rounded-xl hover:bg-primary-container hover:text-on-primary-container transition-all"
+                  >
+                    "Gaucher Hastalığı belirtileri nelerdir?"
+                  </button>
+                  <button 
+                    onClick={() => setAiInput("Yürüme güçlüğü ve kas zayıflığı hangi bölüme girmeli?")}
+                    className="text-left text-label-sm p-3 border border-primary/20 bg-white/50 rounded-xl hover:bg-primary-container hover:text-on-primary-container transition-all"
+                  >
+                    "Yürüme güçlüğü için hangi bölüm?"
+                  </button>
+                </div>
+              )}
+
+              {isAiLoading && (
+                <div className="flex gap-1 items-center px-2 py-2 self-start">
+                  <div className="w-1.5 h-1.5 bg-outline rounded-full animate-pulse"></div>
+                  <div className="w-1.5 h-1.5 bg-outline rounded-full animate-pulse delay-75"></div>
+                  <div className="w-1.5 h-1.5 bg-outline rounded-full animate-pulse delay-150"></div>
+                </div>
+              )}
+            </div>
+
+            <div className="p-4 bg-white/50 border-t border-outline-variant">
+              <div className="flex items-center bg-surface-lowest rounded-full px-4 py-2 border border-outline-variant focus-within:border-primary transition-all">
+                <input 
+                  className="w-full bg-transparent border-none focus:outline-none focus:ring-0 text-body-md py-1" 
+                  placeholder="Sorunuzu buraya yazın..." 
+                  type="text"
+                  value={aiInput}
+                  onChange={(e) => setAiInput(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && handleAiSubmit()}
+                />
+                <button 
+                  onClick={handleAiSubmit}
+                  className="text-primary hover:scale-110 transition-transform"
+                >
+                  <span className="material-symbols-outlined">send</span>
+                </button>
+              </div>
+              <p className="text-[10px] text-center mt-2 text-outline">Bilgiler araştırma amaçlıdır, doktora danışın.</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Mobile Navigation */}
+      <nav className="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-4 pt-2 bg-surface-container z-40 rounded-t-xl shadow-lg border-t border-outline-variant">
+        <button 
+          onClick={() => setActiveTab("home")}
+          className={`flex flex-col items-center justify-center px-4 py-1 rounded-full ${activeTab === 'home' ? 'bg-primary-container text-on-primary-container' : 'text-on-surface-variant'}`}
+        >
+          <span className="material-symbols-outlined">home</span>
+          <span className="font-label-sm text-[10px]">Home</span>
+        </button>
+        <button 
+          onClick={() => setActiveTab("about")}
+          className={`flex flex-col items-center justify-center px-4 py-1 rounded-full ${activeTab === 'about' ? 'bg-primary-container text-on-primary-container' : 'text-on-surface-variant'}`}
+        >
+          <span className="material-symbols-outlined">info</span>
+          <span className="font-label-sm text-[10px]">About</span>
+        </button>
+        <button 
+          onClick={() => setActiveTab("makaleler")}
+          className={`flex flex-col items-center justify-center px-4 py-1 rounded-full ${activeTab === 'makaleler' ? 'bg-primary-container text-on-primary-container' : 'text-on-surface-variant'}`}
+        >
+          <span className="material-symbols-outlined">library_books</span>
+          <span className="font-label-sm text-[10px]">Library</span>
+        </button>
+        <button 
+          onClick={() => setIsAiWidgetOpen(true)}
+          className="flex flex-col items-center justify-center text-on-surface-variant"
+        >
+          <span className="material-symbols-outlined">smart_toy</span>
+          <span className="font-label-sm text-[10px]">Assistant</span>
+        </button>
+      </nav>
+
+      {/* Footer */}
+      <footer className="bg-surface-dim dark:bg-on-background text-on-surface pt-16 pb-24 md:pb-12 border-t border-outline-variant">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-gutter px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+          <div className="space-y-6">
+            <div className="font-headline-md text-headline-md text-on-surface font-bold">RareCare</div>
+            <p className="font-body-md text-body-md text-on-surface-variant max-w-sm">
+              Nadir hastalıklarla mücadele eden bireyleri uzmanlık ve empatiyle destekliyoruz. Bilimsel veriye dayalı güvenilir bir köprü.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-8">
+            <div>
+              <h5 className="font-label-md text-label-md text-on-surface font-bold mb-4 uppercase">Platform</h5>
+              <ul className="space-y-3">
+                <li><a className="font-body-md text-body-md text-on-surface-variant hover:underline transition-all" href="#">Privacy Policy</a></li>
+                <li><a className="font-body-md text-body-md text-on-surface-variant hover:underline transition-all" href="#">Terms of Service</a></li>
+                <li><a className="font-body-md text-body-md text-on-surface-variant hover:underline transition-all" href="#">Contact Support</a></li>
+              </ul>
+            </div>
+            <div>
+              <h5 className="font-label-md text-label-md text-on-surface font-bold mb-4 uppercase">Bilim</h5>
+              <ul className="space-y-3">
+                <li><a className="font-body-md text-body-md text-on-surface-variant hover:underline transition-all" href="#">Research Ethics</a></li>
+                <li><a className="font-body-md text-body-md text-on-surface-variant hover:underline transition-all" href="#">Klinik Çalışmalar</a></li>
+                <li><a className="font-body-md text-body-md text-on-surface-variant hover:underline transition-all" href="#">Uzman Paneli</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div className="mt-16 pt-8 border-t border-outline-variant max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+          <p className="font-label-sm text-label-sm text-on-surface-variant text-center md:text-left">
+            © 2024 RareCare Medical Research Platform. Expertise and Empathy.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }

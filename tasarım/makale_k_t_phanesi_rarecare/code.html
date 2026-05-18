@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RareCare - Tıbbi Araştırma Kütüphanesi</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#d6e3ff",
+                        "outline": "#737685",
+                        "error": "#ba1a1a",
+                        "on-background": "#091c35",
+                        "on-surface-variant": "#434654",
+                        "on-secondary-container": "#006e6e",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "primary-container": "#0052cc",
+                        "tertiary-fixed": "#d9e3f2",
+                        "on-tertiary-fixed": "#131c27",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#ecf0ff",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#bdc7d6",
+                        "surface-tint": "#0c56d0",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#091c35",
+                        "secondary": "#006a6a",
+                        "secondary-fixed-dim": "#76d6d5",
+                        "surface": "#f9f9ff",
+                        "surface-dim": "#cadbfc",
+                        "secondary-container": "#90efef",
+                        "on-tertiary-container": "#cad4e3",
+                        "secondary-fixed": "#93f2f2",
+                        "on-secondary-fixed": "#002020",
+                        "primary": "#003d9b",
+                        "surface-variant": "#d6e3ff",
+                        "on-primary-fixed": "#001848",
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#c3c6d6",
+                        "inverse-surface": "#20314b",
+                        "primary-fixed": "#dae2ff",
+                        "primary-fixed-dim": "#b2c5ff",
+                        "on-tertiary-fixed-variant": "#3e4853",
+                        "surface-container": "#e7eeff",
+                        "surface-container-low": "#f0f3ff",
+                        "inverse-primary": "#b2c5ff",
+                        "surface-container-high": "#dfe8ff",
+                        "tertiary": "#3b4450",
+                        "tertiary-container": "#525c68",
+                        "surface-bright": "#f9f9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#0040a2",
+                        "on-secondary-fixed-variant": "#004f4f",
+                        "background": "#f9f9ff",
+                        "on-primary-container": "#c4d2ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "base": "8px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Public Sans"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Public Sans"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "display-lg": ["Public Sans"],
+                        "headline-md": ["Public Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<nav class="bg-surface-lowest dark:bg-inverse-surface border-b border-outline-variant dark:border-outline fixed top-0 w-full z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-20">
+<div class="text-headline-md font-headline-md font-bold text-primary dark:text-inverse-primary">RareCare</div>
+<div class="hidden md:flex items-center gap-gutter">
+<a class="text-on-surface-variant dark:text-on-tertiary-container font-medium hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 font-label-md text-label-md" href="#">Home</a>
+<a class="text-on-surface-variant dark:text-on-tertiary-container font-medium hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 font-label-md text-label-md" href="#">Doctors</a>
+<a class="text-primary dark:text-inverse-primary font-bold border-b-2 border-primary dark:border-inverse-primary pb-1 font-label-md text-label-md" href="#">Articles</a>
+<a class="text-on-surface-variant dark:text-on-tertiary-container font-medium hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 font-label-md text-label-md" href="#">About</a>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-outline mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md w-48" placeholder="Makale ara..." type="text"/>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-full font-label-md text-label-md active:opacity-80 active:scale-95 transition-all">Sign In</button>
+</div>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<main class="pt-24 pb-20 min-h-screen max-w-container-max mx-auto px-margin-desktop">
+<!-- Hero Header -->
+<header class="py-12 flex flex-col md:flex-row md:items-end justify-between gap-gutter">
+<div class="max-w-2xl">
+<h1 class="font-display-lg text-display-lg text-on-background mb-4">Tıbbi Araştırma Kütüphanesi</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Nadir hastalıklar dünyasındaki en son klinik araştırmaları, vaka çalışmalarını ve uzman görüşlerini keşfedin.</p>
+</div>
+<div class="md:hidden mt-6">
+<div class="flex items-center bg-surface-container px-4 py-3 rounded-xl border border-outline-variant">
+<span class="material-symbols-outlined text-outline mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md w-full" placeholder="Makale ara..." type="text"/>
+</div>
+</div>
+</header>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Sidebar / Filters -->
+<aside class="md:col-span-3 flex flex-col gap-8">
+<div>
+<h3 class="font-label-md text-label-md text-outline uppercase tracking-wider mb-4">Hastalık Kategorileri</h3>
+<nav class="flex flex-col gap-2">
+<label class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container cursor-pointer transition-colors">
+<input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+<span class="font-body-md text-body-md">Genetik Hastalıklar</span>
+</label>
+<label class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container cursor-pointer transition-colors">
+<input checked="" class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+<span class="font-body-md text-body-md">Metabolik Bozukluklar</span>
+</label>
+<label class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container cursor-pointer transition-colors">
+<input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+<span class="font-body-md text-body-md">Nörolojik Durumlar</span>
+</label>
+<label class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container cursor-pointer transition-colors">
+<input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+<span class="font-body-md text-body-md">Onkoloji (Nadir)</span>
+</label>
+<label class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container cursor-pointer transition-colors">
+<input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+<span class="font-body-md text-body-md">İmmünoloji</span>
+</label>
+</nav>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-outline uppercase tracking-wider mb-4">Makale Türleri</h3>
+<nav class="flex flex-col gap-2">
+<label class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container cursor-pointer transition-colors">
+<input class="text-primary focus:ring-primary border-outline-variant" name="type" type="radio"/>
+<span class="font-body-md text-body-md">Tüm Makaleler</span>
+</label>
+<label class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container cursor-pointer transition-colors">
+<input class="text-primary focus:ring-primary border-outline-variant" name="type" type="radio"/>
+<span class="font-body-md text-body-md">Klinik Deneyler</span>
+</label>
+<label class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container cursor-pointer transition-colors">
+<input checked="" class="text-primary focus:ring-primary border-outline-variant" name="type" type="radio"/>
+<span class="font-body-md text-body-md">Vaka Çalışmaları</span>
+</label>
+<label class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container cursor-pointer transition-colors">
+<input class="text-primary focus:ring-primary border-outline-variant" name="type" type="radio"/>
+<span class="font-body-md text-body-md">Genel Bilgiler</span>
+</label>
+</nav>
+</div>
+<div class="p-6 bg-primary-container rounded-xl text-on-primary-container">
+<span class="material-symbols-outlined text-[32px] mb-3" data-icon="lightbulb">lightbulb</span>
+<h4 class="font-headline-md text-headline-md mb-2">Hala Aradığınızı Bulamadınız mı?</h4>
+<p class="font-body-md text-body-md mb-4 opacity-90">Yapay zeka asistanımız binlerce makaleyi sizin için tarayabilir.</p>
+<button class="bg-on-primary-container text-primary-container w-full py-2 rounded-lg font-label-md text-label-md font-bold">Asistanı Başlat</button>
+</div>
+</aside>
+<!-- Main Content Grid -->
+<section class="md:col-span-9">
+<div class="flex justify-between items-center mb-6">
+<span class="font-label-md text-label-md text-on-surface-variant">2,450 sonuç gösteriliyor</span>
+<div class="flex items-center gap-2 font-label-md text-label-md">
+<span class="text-outline">Sırala:</span>
+<select class="bg-transparent border-none focus:ring-0 font-bold text-primary p-0">
+<option>En Yeni</option>
+<option>En Çok Alıntılanan</option>
+<option>Alfabetik</option>
+</select>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+<!-- Article Card 1 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-all flex flex-col">
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm">Metabolik Bozukluklar</span>
+<span class="bg-surface-container-highest text-primary px-3 py-1 rounded-full font-label-sm text-label-sm">Klinik Deney</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-3">Gaucher Hastalığı Tip 1 Tedavisinde Yeni Yaklaşımlar</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-3">
+                                Bu çalışma, enzim replasman tedavisine direnç gösteren Tip 1 Gaucher hastalarında substrat azaltma tedavisinin uzun vadeli etkinliğini ve güvenlik profilini incelemektedir.
+                            </p>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-dim overflow-hidden">
+<img alt="Yazar" class="w-full h-full object-cover" data-alt="A professional headshot of a female medical researcher in her 40s, wearing clinical attire and glasses, set against a clean, soft-lit clinical background. The image has a high-key, modern medical aesthetic with a cool, professional tone consistent with a research environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmgKm5Svvw4KsqtBBvGPmwymaWEuRDGoNlvkA_6Loo_MDyCbEdmU7JbQVDpm42LKd-EHvI1LZ5WLdhvcZt1tvkerw4B6dY-a-LYkSIhkN3XLu6oonUzQ3Z3QooWxgiHYQyZwL4s27Kg8EFSlQtGd2RQ1vRwCPoISruA4hJv-Qa6clWgWkvBTjstmoAviDQMufQLeQgGMu_96eTObwIPM19G4MIzCaGwU2oyIY9L9ldkbIHOKAp1MxlMJLyAMxMzlg0rL-1tfsqA2wb"/>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Dr. Ayşe Yılmaz • 12 Mar 2024</span>
+</div>
+<button class="text-primary font-bold flex items-center gap-1 hover:gap-2 transition-all font-label-md text-label-md">
+                                    Devamını Oku <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Article Card 2 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-all flex flex-col">
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm">Genetik Hastalıklar</span>
+<span class="bg-surface-container-highest text-primary px-3 py-1 rounded-full font-label-sm text-label-sm">Vaka Çalışması</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-3">Huntington Hastalığında Erken Tanı Yöntemleri</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-3">
+                                Moleküler genetik testlerdeki son gelişmeler, Huntington hastalığı riski taşıyan bireylerde semptomlar ortaya çıkmadan yıllar önce teşhis konulmasına olanak tanımaktadır.
+                            </p>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-dim overflow-hidden">
+<img alt="Yazar" class="w-full h-full object-cover" data-alt="A portrait of a male doctor in a white lab coat, conveying expertise and calm authority. The lighting is soft and even, highlighting professional confidence. The background is a minimalist, modern hospital interior with blue and white tones, reflecting a clean clinical aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB60OqIN1CtI_SPjGHYBVTa5SWRq2AJNyd0glehGmbvd22s2BS6Xv2_vqR80Gi74ohGlp-_vPuAnIrqNOG1d16avxJBgTEmYONbKxZw9KBkQbPnGFkOhJ8aUy05Att4b8XKoVRVgQ8kTfu6tz7ci0CRJRg2w2hkY1qJLfd95miaDKo3oZwB3Q_4svPFO7FxzOe4wnvvkdgzgSnScgkjCtUESM7b-FEwLrAMAl6ja6JheqS_-KA6wOD4IcOeMVXMTqqLwGwIavWnN2Bw"/>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Dr. Mehmet Can • 05 Şub 2024</span>
+</div>
+<button class="text-primary font-bold flex items-center gap-1 hover:gap-2 transition-all font-label-md text-label-md">
+                                    Devamını Oku <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Article Card 3 (Bento-style Large) -->
+<article class="lg:col-span-2 bg-primary-fixed border border-outline-variant rounded-xl overflow-hidden hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)] transition-all flex flex-col md:flex-row">
+<div class="md:w-1/3 h-48 md:h-auto overflow-hidden">
+<img alt="DNA Research" class="w-full h-full object-cover" data-alt="A high-tech laboratory scene showing a digital visualization of DNA double helix structures glowing in soft teal and blue light. Professional laboratory equipment and micro-pipettes are visible in the soft-focus background. The atmosphere is clinical yet hopeful, emphasizing advanced genetic research and precision medicine." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiIyIYjVwY3mwNRn_K4bS5m6wu8TKYCyZvmE4iOIM3wObp9lMQvfsJctKiuIG4m_xo9XaT5frzzg4Ytt5h8lF3Z2sqHQFDTc0IcnU-3jOJeS00Huv-IHgedZoEgWem-Juiu-cPGxRlZ0bxRE33BjQwTsu3giq14-Boo2mPCECf1VzVsSrpNSqvca7wUPA9LUoS-HgfP38E0Tzp43UGOHM-cUMp65QBYGpTxrNxdQ-xJUlmB5nze4m03aa7Lb26C5W6HNIyPBppiSsK"/>
+</div>
+<div class="p-8 flex-1 flex flex-col">
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="bg-primary text-on-primary px-3 py-1 rounded-full font-label-sm text-label-sm">Editörün Seçimi</span>
+<span class="bg-surface-container-highest text-primary px-3 py-1 rounded-full font-label-sm text-label-sm">Genetik</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-primary-fixed mb-4">CRISPR Teknolojisinin Nadir Hastalık Tedavisindeki Geleceği</h2>
+<p class="font-body-md text-body-md text-on-primary-fixed-variant mb-6">
+                                Gen düzenleme teknolojisindeki devrim niteliğindeki gelişmeler, daha önce tedavisi imkansız kabul edilen tek gen bozuklukları için umut ışığı oluyor. Bu kapsamlı rapor, CRISPR-Cas9 sisteminin klinik denemelerdeki mevcut durumunu ve etik değerlendirmelerini ele almaktadır.
+                            </p>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="font-label-md text-label-md text-primary font-bold">Tam Raporu İncele</span>
+<span class="text-outline text-label-sm">Okuma süresi: 12 dk</span>
+</div>
+<button class="bg-primary text-on-primary px-8 py-3 rounded-full font-label-md text-label-md font-bold shadow-lg">Makaleyi Oku</button>
+</div>
+</div>
+</article>
+<!-- Article Card 4 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-all flex flex-col">
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm">Nöroloji</span>
+<span class="bg-surface-container-highest text-primary px-3 py-1 rounded-full font-label-sm text-label-sm">Bilgilendirme</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-3">SMA Hastalığında Multidisipliner Yaklaşım</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-3">
+                                Spinal Müsküler Atrofi yönetiminde fizyoterapi, beslenme desteği ve yeni nesil ilaç tedavilerinin koordineli kullanımının yaşam kalitesi üzerindeki etkileri.
+                            </p>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-outline">RareCare Araştırma Grubu • 20 Ocak 2024</span>
+</div>
+<button class="text-primary font-bold flex items-center gap-1 hover:gap-2 transition-all font-label-md text-label-md">
+                                    Devamını Oku <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Article Card 5 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-all flex flex-col">
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm">Onkoloji</span>
+<span class="bg-surface-container-highest text-primary px-3 py-1 rounded-full font-label-sm text-label-sm">Klinik Araştırma</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-3">Çocukluk Çağı Nadir Tümörlerinde İmmünoterapi</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-3">
+                                Pediatrik onkolojide hedefe yönelik tedavilerin ve bağışıklık sistemi modülatörlerinin dirençli vakalardaki başarı oranları üzerine güncel veriler.
+                            </p>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-dim overflow-hidden">
+<img alt="Yazar" class="w-full h-full object-cover" data-alt="A female doctor in her 30s with a kind and empathetic expression, dressed in professional medical attire. She is looking directly at the camera with a gentle smile. The background is a high-end, softly blurred medical clinic environment with clinical blue and white tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfRf1a6BWJSwGLZKnsiL-qGIoO15OlRclApm_0-Z_G3JIULyhmyhlJ5fGgZZss-1wUMSmGi7V8Zc4abe_zT-rIeUW0yJa4B3YAK_hb63hDMEDklgzexzcuAci4h_WkBruR91eHCXDOVCqCRXVt22vGPx0IvVXVLFEXjriXRCf07q8FTCDkS0SA4hp5vAK8sOZNappveAdKijaIzWni4cNomgKDaByP6fuiqeZPI4-AdVIxfhhGz_foT1Sdlk31Yk6qFb1eu7MvEYSX"/>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Dr. Elif Aras • 15 Oca 2024</span>
+</div>
+<button class="text-primary font-bold flex items-center gap-1 hover:gap-2 transition-all font-label-md text-label-md">
+                                    Devamını Oku <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+<!-- Pagination -->
+<nav class="mt-12 flex justify-center items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-outline hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container text-on-surface font-medium transition-colors">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container text-on-surface font-medium transition-colors">3</button>
+<span class="px-2 text-outline">...</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container text-on-surface font-medium transition-colors">48</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-outline hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</nav>
+</section>
+</div>
+</main>
+<!-- AI Assistant Floating Widget -->
+<div class="fixed bottom-24 right-8 z-40 hidden md:block">
+<div class="glass-effect p-4 rounded-full shadow-lg border border-primary/20 flex items-center gap-3 cursor-pointer hover:scale-105 transition-transform">
+<div class="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+</div>
+<div class="pr-4">
+<p class="font-label-sm text-label-sm text-primary font-bold uppercase tracking-tighter">AI Assistant</p>
+<p class="font-body-md text-body-md text-on-background">Size nasıl yardımcı olabilirim?</p>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="bg-surface-dim dark:bg-on-background border-t border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter px-margin-desktop py-12 max-w-container-max mx-auto">
+<div class="flex flex-col gap-6">
+<div class="font-headline-md text-headline-md text-on-surface dark:text-surface-bright font-bold">RareCare</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">Uzmanlık ve empati ile nadir hastalıklara yönelik küresel bir araştırma ve destek platformu.</p>
+<div class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-tertiary-fixed-variant">
+                    © 2024 RareCare Medical Research Platform. Expertise and Empathy.
+                </div>
+</div>
+<div class="grid grid-cols-2 gap-gutter">
+<div class="flex flex-col gap-3">
+<h4 class="font-label-md text-label-md font-bold text-on-surface dark:text-surface-bright">Kurumsal</h4>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:underline transition-all" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:underline transition-all" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-label-md text-label-md font-bold text-on-surface dark:text-surface-bright">Destek</h4>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:underline transition-all" href="#">Contact Support</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:underline transition-all" href="#">Research Ethics</a>
+</div>
+</div>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container dark:bg-inverse-surface z-50 rounded-t-xl shadow-lg border-t border-outline-variant px-4 pb-4 pt-2 flex justify-around items-center">
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-variant px-4 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm">Ana Sayfa</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-variant px-4 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="medical_services">medical_services</span>
+<span class="font-label-sm text-label-sm">Doktorlar</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="library_books" style="font-variation-settings: 'FILL' 1;">library_books</span>
+<span class="font-label-sm text-label-sm">Kütüphane</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-variant px-4 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+<span class="font-label-sm text-label-sm">Asistan</span>
+</a>
+</nav>
+</body></html>
